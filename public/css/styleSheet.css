@@ -15,7 +15,9 @@
   color:#ffffff;
 
 }
-
+li{
+  float: left;
+}
 #links{
   background-color: #c2c2c2;
   padding-top: 1%;
