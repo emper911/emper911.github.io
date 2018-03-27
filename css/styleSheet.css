@@ -1,11 +1,13 @@
 .container-fluid{
   background-color: #9AE2C5;
   color: #ffffff;
+  width:100%;
 }
 #personal-header{
-  padding-top: 0%;
+  padding-top: 3%;
   padding-bottom: 3%;
   text-align: center;
+  
 }
 
 #personal-detail{
@@ -13,11 +15,43 @@
   padding-top: 0%;
   padding-bottom: 5%;
   color:#ffffff;
+  
 
 }
-li{
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  width:100%;
+  z-index: 1;
+}
+
+li {
   float: left;
 }
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+  text-decoration: none;
+  color:#ffffff;
+}
+.active{
+  background-color: #00C284;
+}
+
 #links{
   background-color: #c2c2c2;
   padding-top: 1%;
