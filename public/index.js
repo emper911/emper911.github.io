@@ -1,18 +1,16 @@
 $(document).ready(function() {
-  $("#top").mouseenter(function(event) {
-    /* When mouse hovers over id = top */
-    $(this).css("background-color", "#ffffff");
-  });
-  $("#top").mouseleave(function(event) {
-    /* Act on the event */
 
-    });("slow")
-    $(this).css("background-color", "#000000");
-  });
-  $("#top").click(function(event) {
-    /* Act on the event */
+  $("#github-link").hover(function(){
+    $("#github-image").attr("src", "images/GitHub-Mark-Light-64px.png")
+  },function(){
+    $("#github-image").attr("src", "images/GitHub-Mark-64px.png")
+  }
+  );
+  $("#linkedin-link").hover(function(){
+    $("#linkedin-image").attr("src", "images/In-White-66px-R.png")
+  },function(){
+    $("#linkedin-image").attr("src", "images/In-Black-66px-R.png")
+  }
+  );
 
-  });
-    /* Act on the event */
-  });
 });

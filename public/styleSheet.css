@@ -1,3 +1,26 @@
-.container{
-  background-color: rgb(200, 200, 200);
+.container-fluid{
+  background-color: #9AE2C5;
+  color: #ffffff;
+}
+#personal-header{
+  padding-top: 0%;
+  padding-bottom: 3%;
+  text-align: center;
+}
+
+#personal-detail{
+  background-color: #474e5d;
+  padding-top: 0%;
+  padding-bottom: 5%;
+  color:#ffffff;
+
+}
+
+#links{
+  background-color: #c2c2c2;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  text-align: center;
+  color:#ffffff;
+
 }
