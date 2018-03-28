@@ -1,0 +1,21 @@
+
+.container-fluid{
+  background-color: #BDBDBD;
+  color: #ffffff;
+}
+#personal-header{
+  padding-top: 7%;
+  padding-bottom: 3%;
+  text-align: left;
+  margin:0;
+  
+}
+
+#personal-detail{
+  background-color: #474e5d;
+  padding-top: 0%;
+  padding-bottom: 5%;
+  color:#ffffff;
+}
+
+

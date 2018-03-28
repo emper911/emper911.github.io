@@ -1,0 +1,33 @@
+#navbar ol {
+    font-family: sans-serif;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ffffff;
+    position: fixed;
+    width:100%;
+    z-index: 1;
+    padding-left: 7%;
+  }
+  
+  #navbar li {
+    float: right;
+  }
+  
+  #navbar li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 18px;
+    text-decoration: none;
+  
+  }
+
+  /* Change the link color to #111 (black) on hover */
+  #navbar li a:hover {
+    /*background-color: #FAFAFA;*/
+    text-decoration: none;
+    color:#909090;
+    /*color:#ffffff;*/
+  }
