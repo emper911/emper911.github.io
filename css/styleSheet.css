@@ -3,10 +3,11 @@
   color: #ffffff;
 }
 #personal-header{
-  padding-top: 5%;
+  padding-top: 7%;
   padding-bottom: 3%;
-  padding-left: 3%;
   text-align: left;
+  margin: 0;
+  width:100%;
   
 }
 
@@ -15,9 +16,8 @@
   padding-top: 0%;
   padding-bottom: 5%;
   color:#ffffff;
-  
-
 }
+
 ol {
   font-family: sans-serif;
   list-style-type: none;
@@ -28,6 +28,7 @@ ol {
   position: fixed;
   width:100%;
   z-index: 1;
+  padding-left: 7%;
 }
 
 li {
@@ -38,14 +39,14 @@ li a {
   display: block;
   color: black;
   text-align: center;
-  padding: 14px 16px;
+  padding: 14px 18px;
   text-decoration: none;
 
 }
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-  /*background-color: #111;*/
+  background-color: #FAFAFA;
   text-decoration: none;
   color:#909090;
   /*color:#ffffff;*/
@@ -55,7 +56,7 @@ li a:hover {
 }
 
 #links{
-  background-color: #837F60;
+  background-color: rgb(158, 148, 110);
   padding-top: 1%;
   padding-bottom: 1%;
   text-align: center;
