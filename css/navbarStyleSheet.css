@@ -11,6 +11,12 @@
     /*padding-left: 5%;*/
   }
   
+.one-edge-shadow {
+	-webkit-box-shadow: 0 8px 6px -6px rgb(114, 114, 114);
+	-moz-box-shadow: 0 8px 6px -6px rgb(114, 114, 114);
+	box-shadow: 0 8px 6px -6px rgb(114, 114, 114);
+}
+
   #navbar li {
     float: right;
   }
