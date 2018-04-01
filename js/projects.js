@@ -1,6 +1,21 @@
 $(document).ready(function() {
-    $("#autogarden-carousel").carousel({
-        keyboard: true
+    $(".carousel").carousel({
+        keyboard: true,
+        interval: false
     });
-    $("#autogarden-carousel").carousel("pause");
+    $("#autogarden-video").onclick(function(event){
+        $("#autogarden-video").trigger("play()");
+    });
+    /*
+        $("#autogarden-video").click(function(){
+            if (clicked == true){
+                $("#autogarden-video").get(0).pause();
+                clicked = false;
+            }
+            else{
+                clicked = true;
+                $("#autogarden-video").get(0).play();
+            }
+        });
+    */  
 });

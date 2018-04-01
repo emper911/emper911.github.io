@@ -62,7 +62,7 @@
                 <div id="autogarden">
                     <h4>Automated Hydroponic Garden with Raspberry Pi:</h4>
 
-                    <div id="autogarden-carousel" class="carousel slide" data-ride="carousel">
+                    <div id="autogarden-carousel" class="carousel slide" data-ride="carousel" data-interval="false" >
                         <!--indicators .nav-->
                         <ol class="carousel-indicators">
                           <li data-target="#autogarden-carousel" data-slide-to="0" class="active"></li>
@@ -73,10 +73,10 @@
                         <!--wrapper for slides-->
                         <div class="carousel-inner" role="listbox" >
                             <div class="item active">
-                                <img src="../images/projects/autogarden/1.jpg" alt="First slide"/>
+                                <img src="../images/projects/autogarden/1.jpg" alt="First slide" style="height:420px;"/>
                             </div>
                             <div class="item">
-                                <img src="../images/projects/autogarden/2.png" alt="Second slide"/>
+                                <img src="../images/projects/autogarden/2.png" alt="Second slide" style="height:420px;" />
                             </div>
                             <!--
                                 <div class="item">
@@ -84,10 +84,12 @@
                                 </div>
                             -->
                             <div class="item">
-                                <video height="auto" width="90%" controls>
-                                    <source src="../images/projects/autogarden/video.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
+                                <div style="position: relative;">
+                                    <video id="autogarden-video" height="100%" width="100%" muted>
+                                        <source src="../images/projects/autogarden/video.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
                             </div>
                         
                         </div>
