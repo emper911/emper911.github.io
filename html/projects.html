@@ -55,8 +55,8 @@
             <div class="col-sm-6" id="coding">
                 <h2 id="coding-title" >Programming and Technology</h2>
                 <p>
-                    I have pursued various independent projects with a healthy amount of failures, but those
-                    that I am proud of are linked below.
+                    I have pursued various independent projects with those
+                    that I am proud of linked below.
                 <br></br>
                 </p>
                 <div id="autogarden">
@@ -85,7 +85,7 @@
                             -->
                             <div class="item">
                                 <div style="position: relative;">
-                                    <video id="autogarden-video" height="100%" width="100%" muted>
+                                    <video id="autogarden-video" height="100%" width="100%" muted onclick="play()">
                                         <source src="../images/projects/autogarden/video.mp4" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
@@ -115,12 +115,50 @@
                         I learned a lot about electricity, circuits, arduino, raspberry pi, hydroponic nutrients and plant biology,
                         thinking about all the necessary components needed and what would be feasible to automate with my new found programming skils.
                         Through making this project I learned a lot and was able to grow kale without the need of human input for a whole month while I was off to Japan.
-                        <br><a href="https://github.com/emper911/autoGarden/wiki" style="text-decoration: none;" >Link to the Github Wiki</a></br>
+                        <br><a href="https://github.com/emper911/autoGarden/wiki" style="text-decoration: none;" >Link to the Github</a></br>
+                        <br></br>
                     </p>
                     
                 </div>
                 <div id="bluetoothlights">
-                    <h4>Bluetooth RGB Lighting:</h4>
+                    <h4>Bluetooth RGB Lighting System:</h4>
+
+                    <div id="bluetoothlight-carousel" class="carousel slide" data-ride="carousel" data-interval="false" >
+                        <!--indicators .nav-->
+                        <ol class="carousel-indicators">
+                          <li data-target="#bluetoothlight-carousel" data-slide-to="0" class="active"></li>
+                          <li data-target="#bluetoothlight-carousel" data-slide-to="1"></li>
+                        </ol>
+                        <!--wrapper for slides-->
+                        <div class="carousel-inner" role="listbox" >
+                            <div class="item active">
+                                <img src="../images/projects/bluetoothlights/lights.jpg" alt="First slide" style="height:700px;"/>
+                            </div>
+                            <div class="item">
+                                <img src="../images/projects/bluetoothlights/circuit.jpg" alt="Second slide" style="height:700px" />
+                            </div>
+
+                        
+                        </div>
+                        <!--Carousel control -->
+                        <a class="left carousel-control" href="#bluetoothlight-carousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#bluetoothlight-carousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                    <p>
+                        <br></br>
+                        During my third year at university I continued to tinker with my hydroponic setup, however, I wanted to explore
+                        the ability of using web-technology as an interface. One of the most crucial aspects of a hydroponic setup is Lighting
+                        and I dived deeper into communication from a micro controller to a webserver. My idea guided me towards using a bluetooth
+                        module with arduino to send information from a node.js webserver. 
+                        <br><a href="https://github.com/emper911/LEDBLUETOOTHLIGHTS" style="text-decoration: none;" >Link to the Github</a></br>
+                    </p>
                 </div>
 
             </div>
