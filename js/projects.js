@@ -3,8 +3,9 @@ $(document).ready(function() {
         keyboard: true,
         interval: false
     });
-    $("#autogarden-video").onclick(function(event){
-        $("#autogarden-video").trigger("play()");
+    $("#autogarden-button").onclick(function(){
+        $(this).hide();
+        $("#autogarden-video").get(0).play();
     });
     /*
         $("#autogarden-video").click(function(){

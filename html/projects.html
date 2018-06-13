@@ -21,7 +21,7 @@
     <!--mobile first webdevelopment -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" >
-  </head>
+  </head> 
 
   <body>
     <div class="container-fluid">
@@ -85,12 +85,12 @@
                             -->
                             <div class="item">
                                 <div style="position: relative;">
-                                        <div>
-                                            <video id="autogarden-video" height="100%" width="100%" muted onclick="play()">
+                                        <div class="container">
+                                            <video id="autogarden-video" height="100%" width="100%" muted>
                                                 <source src="../images/projects/autogarden/video.mp4" type="video/mp4">
                                                 Your browser does not support the video tag.
                                             </video>
-                                            <input type="button" class="btn" >
+                                            <button class="btn" id="autogarden-button">Click to Play</button>
                                         </div>
                                 </div>
                             </div>
@@ -114,8 +114,8 @@
                         upon Hydroponics and soil-less growing. I found it fascinating that food could be grown healthy and faster
                         without the need of soil, as well as being more sustainable all at the same time. 
                         <br></br>
-                        This got me thinking of whether or not it was possible to build my own system. For the summer of 2016
-                        I learned a lot about electricity, circuits, arduino, raspberry pi, hydroponic nutrients and plant biology,
+                        After taking a couple of programming courses and seeing its potential, this got me thinking of whether or not it was possible to build my own system. 
+                        For the summer of 2016 I learned a lot about electricity, circuits, arduino, raspberry pi, hydroponic systems and plant biology,
                         thinking about all the necessary components needed and what would be feasible to automate with my new found programming skils.
                         Through making this project I learned a lot and was able to grow kale without the need of human input for a whole month while I was off to Japan.
                         <br><a href="https://github.com/emper911/autoGarden/wiki" style="text-decoration: none;" >Link to the Github</a></br>
@@ -135,10 +135,10 @@
                         <!--wrapper for slides-->
                         <div class="carousel-inner" role="listbox" >
                             <div class="item active">
-                                <img src="../images/projects/bluetoothlights/lights.jpg" alt="First slide" style="height:700px;"/>
+                                <img src="../images/projects/bluetoothlights/lights.jpg" alt="First slide" style="height:600px;"/>
                             </div>
                             <div class="item">
-                                <img src="../images/projects/bluetoothlights/circuit.jpg" alt="Second slide" style="height:700px" />
+                                <img src="../images/projects/bluetoothlights/circuit.jpg" alt="Second slide" style="height:600px" />
                             </div>
 
                         
@@ -233,11 +233,14 @@
                 <br></br>
                 <h5>Colors:</h5>
                 <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/343830051&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+                <br></br>
+                <br></br>
             </div>
             <div class="col-sm-3"></div>
-                
+               
         </div>
-        <div class="row">
+        <!--
+            <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6" id="travel">
                 <h2 id="travel-title">Travel</h2>
@@ -259,11 +262,11 @@
                     <h6>WWOOFing in Uenomura, Gunma</h6>
                 </div>
             </div>
-            <div class="col-sm-3"></div>
+            
+        -->
         </div>
-
-      </div>
-
+    </div>
+   
 
       <div class ="row" id="links">
         <div class="col-sm-4">
