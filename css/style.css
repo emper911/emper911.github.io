@@ -1,92 +1,12 @@
-/****************************************************************
-*************************Main Content****************************
-*****************************************************************/
 body{
     margin: 0;
     padding: 0;
-    display: grid;
+    /* display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     grid-template-areas:"nav nav nav nav"
                         ". header figure ."
                         ". section section ."
                         "footer footer footer footer";
 
-    font-family: sans-serif;
-}
-
-/****************************************************************
-*******************Navigation Bar Styling************************
-*****************************************************************/
-nav{
-    grid-area: nav;
-    background-color:#909090;
-}
-.nav-container{
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-}
-nav ul{
-    list-style: none;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #ffffff;
-    position: fixed;
-    width:100%; 
-    z-index: 999;
-
-}
-
-/*
-nav ul li a{
-    display: inline-block;
-    color: black;
-    text-align: center;
-    padding: 16px 20px;
-    text-decoration: none;
-}
-nav ul li a:hover {
-    background-color: #FAFAFA;
-    text-decoration: none;
-    color:#909090;
-    color:#ffffff;
-}
-.active {
-background-color: rgb(236, 235, 235);
-}
-*/
-/****************************************************************
-**************************Header Styling*************************
-*****************************************************************/
-header{
-    grid-area: header;
-    
-}
-
-figure {
-    grid-area: figure;
-}
-figure img{
-    width: 100%;
-    height: auto;
-}
-
-/****************************************************************
-*********************About Section Styling***********************
-*****************************************************************/
-section{
-    grid-area: section;
-}
-
-/****************************************************************
-**************************Footer Styling*************************
-*****************************************************************/
-footer{
-    grid-area: footer;
-}
-.footer-container{
-    display: inline-flex;
+    font-family: sans-serif; */
 }
