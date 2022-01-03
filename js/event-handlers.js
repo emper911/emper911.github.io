@@ -19,6 +19,16 @@ const onMouseUp = () => {
   draw = false;
 };
 
+const onStartToneJs = async () => {
+  Tone = window.Tone;
+  await Tone.start();
+  playSong();
+  const startButton = document.getElementById("start");
+  const clearButton = document.getElementById("clear");
+  startButton.style.display = "none";
+  clearButton.style.display = "block";
+}
+
 const onClearCanvas = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -30,13 +40,18 @@ const canvasEventListners = () => {
 }
 
 const buttonEventListners = () => {
+  const startButton = document.getElementById("start");
+  const fftButton = document.getElementById("fft");
   const clearButton = document.getElementById("clear");
+
+  startButton.addEventListener("click", onStartToneJs);
+  fftButton.addEventListener("click", () => getFFTValue());
   clearButton.addEventListener("click", onClearCanvas);
-}
+};
 
 const initEventListners = () => {
   canvasEventListners();
   buttonEventListners();
-}
+};
 
 initEventListners();
