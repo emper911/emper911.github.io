@@ -20,8 +20,12 @@ const onMouseUp = () => {
 };
 
 const onStartToneJs = async () => {
-  Tone = window.Tone;
-  await Tone.start();
+  actx = new AudioContext();
+  if (actx.state === 'suspended') {
+    actx.resume();
+  }
+  // Tone = window.Tone;
+  // await Tone.start();
   playSong();
   const startButton = document.getElementById("start");
   const clearButton = document.getElementById("clear");
