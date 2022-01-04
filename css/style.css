@@ -11,6 +11,7 @@ html, body {
     background: #120078;
     position: relative;
 }
+
 #start {
     position: absolute;
     z-index: 999;
@@ -23,6 +24,16 @@ html, body {
     background: #9D0191;
     border: 0;
     /* box-shadow:1px 1px 3px 3px rgba(235, 235, 235, 0.377);  */
+}
+
+#play-pause {
+    position: absolute;
+    z-index: 999;
+    bottom: 1vh;
+    right: 1vw;
+    width: 2rem;
+    height: 2rem;
+    display: none;
 }
 
 #fft {

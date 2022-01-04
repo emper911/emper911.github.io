@@ -26,3 +26,23 @@ class Root {
   }
 }
 
+const onMouseMove = (e) => {
+  if (draw) {
+    const root = new Root(e.x, e.y);
+    root.update();
+  }
+};
+
+const onMouseDown = () => {
+  colorPicker = (colorPicker + 1) % 4;
+  ctx.fillStyle = fillColors[colorPicker];
+  ctx.strokeStyle = strokeColors[colorPicker];
+  draw = true;
+};
+const onMouseUp = () => {
+  draw = false;
+};
+
+const onClearCanvas = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+};
