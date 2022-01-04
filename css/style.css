@@ -8,7 +8,9 @@ html, body {
 
 #canvas1 {
     display: block;
-    background: #120078;
+    /* background: #120078; */
+    background: #0a0044;
+    /* background: #141414; */
     position: relative;
 }
 

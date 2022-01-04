@@ -15,13 +15,19 @@ const startAnimation = () => {
   let t = 0;
   var particleLoop = new Tone.Loop((time) => {
     t = (t + 100) % 2000;
-    const x	=	(a * Math.cos(t)) /(1 + (Math.sin(t)) ** 2) 
-    const y	=	(a * Math.sin(t) * Math.cos(t)) / (1 + Math.sin(t))
+    // const x	=	Math.abs((a * Math.cos(t)) /(1 + (Math.sin(t)) ** 2))
+    // const y	=	Math.abs((a * Math.sin(t) * Math.cos(t)) / (1 + Math.sin(t)))
+    const x = Math.abs(Math.sin(t) * a);
+    const y = Math.abs(Math.cos(t) * a);
     console.log(x, y);
-    for (let i = 0; i < 10; i++){
-      const root = new Root(x + centerW + i, y + centerH + i);
-      root.update();
-    } 
+    // const particle = new Particle(centerW * x, centerH * y);
+    // particle.update();
+    // for (let i = 0; i < 10; i++){
+    //   const root = new Root(x + centerW + i, y + centerH + i);
+    //   root.update();
+      // const particle = new Particle(centerW + x + i, centerH + y + i);
+      // particle.update();
+    // }
   }, "8n");
 
   var canvasColorsLoop = new Tone.Loop((time) => {
