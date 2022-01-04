@@ -26,4 +26,4 @@ let MainVisual;
 let RUNNING = false;
 let Tone;
 let fft, player;
-const FFT_SIZE = 2048;
+const FFT_SIZE = 1024;
