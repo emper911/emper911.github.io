@@ -1,5 +1,11 @@
+const rotater = (x, y, r) => {
+  const rX = (x * Math.cos(r)) - (y * Math.sin(r));
+  const rY = (x * Math.sin(r)) + (y * Math.cos(r));
+  return { rX , rY };
+}
+
 const startAnimation = () => {
-  MainVisual = new Visualizer(centerH, centerW);
+  MainVisual = new Visualizer(centerW, centerH);
   const mainLoop = new Tone.Loop((time) => {
     // use the time argument to schedule a callback with Draw
     Tone.Draw.schedule(() => {
@@ -11,24 +17,83 @@ const startAnimation = () => {
     }, time);
   }, "0.01");
   
-  let a = 2;
-  let t = 0;
-  var particleLoop = new Tone.Loop((time) => {
-    t = (t + 100) % 2000;
-    // const x	=	Math.abs((a * Math.cos(t)) /(1 + (Math.sin(t)) ** 2))
-    // const y	=	Math.abs((a * Math.sin(t) * Math.cos(t)) / (1 + Math.sin(t)))
-    const x = Math.abs(Math.sin(t) * a);
-    const y = Math.abs(Math.cos(t) * a);
-    console.log(x, y);
-    // const particle = new Particle(centerW * x, centerH * y);
-    // particle.update();
-    // for (let i = 0; i < 10; i++){
-    //   const root = new Root(x + centerW + i, y + centerH + i);
-    //   root.update();
-      // const particle = new Particle(centerW + x + i, centerH + y + i);
-      // particle.update();
-    // }
-  }, "8n");
+
+  let angle = 0;
+  let a = 100;
+  let rotation = 0;
+  Tone.Transport.scheduleRepeat(function(time){
+    // console.log(0);
+    angle = (angle + 0.01) % (Math.PI * 2);
+    rotation = (rotation + ((Math.PI) / 90)) % (Math.PI * 2);
+    const scaleX	=	((a * Math.cos(angle)) /(1 + (Math.sin(angle)) ** 2));  
+    const scaleY	=	((a * Math.sin(angle) * Math.cos(angle)) / (1 + (Math.sin(angle)) ** 2));
+    const frequencies = getFFTValue();
+    
+    Tone.Draw.schedule(async () => {
+      const freqSorted = frequencies.sort();
+      if ( freqSorted[0] > -150 && freqSorted[freqSorted.length - 1] > -20 ) ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+      else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+      for (let i = 0; i < 10; i++){
+        await setTimeout(2)
+        const x = centerW + (scaleX * i);
+        const y = centerH + (scaleY * i);
+        const rotated = rotater(x, y, rotation);
+        const particle = new Particle(rotated.rX, rotated.rY);
+        ctx2.globalAlpha = 0.2;
+        particle.update();
+      }
+    }, time);
+  }, "0.01", "0:0:0", "8:0:0");
+
+  Tone.Transport.scheduleRepeat(function(time){
+    // console.log(1);
+    angle = (angle + 0.01) % (Math.PI * 2);
+    rotation = (rotation + ((Math.PI) / 90)) % (Math.PI * 2);
+    const scaleX	=	((a * Math.cos(angle)) /(1 + (Math.sin(angle)) ** 2));  
+    const scaleY	=	((a * Math.sin(angle) * Math.cos(angle)) / (1 + (Math.sin(angle)) ** 2));
+    const frequencies = getFFTValue();
+    
+    Tone.Draw.schedule(async () => {
+      const freqSorted = frequencies.sort();
+      // console.log(freqSorted[freqSorted.length - 1]);
+      // console.log(freqSorted[0]);
+      if ( freqSorted[0] > -150 && freqSorted[freqSorted.length - 1] > -20 ) ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+      else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+      for (let i = 0; i < 10; i++){
+        await setTimeout(2)
+        const x = centerW + (scaleX * i);
+        const y = centerH + (scaleY * i);
+
+        const particle = new Particle(x, y);
+        particle.update();
+      }
+    }, time);
+  }, "0.01", "8:0:0", "16:0:0");
+
+  Tone.Transport.scheduleRepeat(function(time){
+    // console.log(2);
+    angle = (angle + 0.01) % (Math.PI * 2);
+    rotation = (rotation + ((Math.PI) / 90)) % (Math.PI * 2);
+    const scaleX	=	((a * Math.cos(angle)) /(1 + (Math.sin(angle)) ** 2));  
+    const scaleY	=	((a * Math.sin(angle) * Math.cos(angle)) / (1 + (Math.sin(angle)) ** 2));
+    const frequencies = getFFTValue();
+    
+    Tone.Draw.schedule(async () => {
+      const freqSorted = frequencies.sort();
+      // console.log(freqSorted[freqSorted.length - 1]);
+      // console.log(freqSorted[0]);
+      if ( freqSorted[0] > -150 && freqSorted[freqSorted.length - 1] > -20 ) ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+      else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+      for (let i = 0; i < 10; i++){
+        await setTimeout(2)
+        const x = centerW + (scaleY * i);
+        const y = centerH + (scaleX * i);
+        const rotated = rotater(x, y, rotation);
+        const particle = new Particle(rotated.rX, rotated.rY);
+        particle.update();
+      }
+    }, time);
+  }, "0.01", "16:0:0", "39:4:4");
 
   var canvasColorsLoop = new Tone.Loop((time) => {
     Tone.Draw.schedule(() => {
@@ -38,9 +103,8 @@ const startAnimation = () => {
       ctx.strokeStyle = strokeColors[colorPicker];
     }, time);
   }, "8n");
-  
-  mainLoop.start(0);
-  particleLoop.start(0)
+
   canvasColorsLoop.start(0);
+  mainLoop.start(0);
 }
 

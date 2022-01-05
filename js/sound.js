@@ -2,21 +2,21 @@ const setupSong = () => {
   player = new Tone.Player("files/beat3.3.mp3");
   player.autostart = true;
   player.sync();
-  // allows for play pause
-  // player.sync().start(0);
   // audio analysis
   fft = new Tone.FFT({
     size: FFT_SIZE
   });
+  vol = new Tone.Volume(-1.0);
   player.connect(fft);
-  fft.connect(Tone.Destination);
+  fft.connect(vol);
+  vol.connect(Tone.Destination);
 };
 
 const getFFTValue = () => {
   let data = null;
   if (fft) data = fft.getValue();
   return data;
-}
+};
 
 
 // EVENTS
@@ -31,16 +31,29 @@ const onPlayPause = () => {
   }
 };
 
+const toggleMute = () => {
+  // vol.volume.value = vol.volume.value > 0 ? 0 : 1;
+  vol.mute = !vol.mute;
+  muteButton = document.getElementById("mute");
+  if (vol.mute) muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>'
+  else muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+};
+
 const onStartToneJs = async () => {
   RUNNING = true;
   Tone = window.Tone;
   await Tone.start();
   setupSong();
   Tone.Transport.start();
+  Tone.Transport.loop = true;
+  Tone.Transport.loopStart = "0:0:0";
+  Tone.Transport.loopEnd = "65:0:0";
   const startButton = document.getElementById("start");
+  const muteButton = document.getElementById("mute");
   const playPauseButton = document.getElementById("play-pause");
   startButton.style.display = "none";
   playPauseButton.style.display = "block";
+  muteButton.style.display = "block";
   startAnimation();
 };
 

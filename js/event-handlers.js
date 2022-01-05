@@ -4,8 +4,9 @@ let colorPicker = 0;
 const onResize = () => {
   ctx.canvas.height = window.innerHeight;
   ctx.canvas.width = window.innerWidth;
-  centerH = Math.floor(canvas.height / 2) + (remToPixels(4) / 2);
-  centerW = Math.floor(canvas.width / 2) + (remToPixels(4) / 2);
+  centerH = Math.floor(canvas.height / 2);
+  centerW = Math.floor(canvas.width / 2);
+  resizeStartButton();
 };
 
 const canvasEventListners = () => {
@@ -16,14 +17,14 @@ const canvasEventListners = () => {
 
 const buttonEventListners = () => {
   const startButton = document.getElementById("start");
+  const muteButton = document.getElementById("mute");
   const playPauseButton = document.getElementById("play-pause");
-  // const fftButton = document.getElementById("fft");
-  const clearButton = document.getElementById("clear");
+  // const clearButton = document.getElementById("clear");
 
   startButton.addEventListener("click", onStartToneJs);
+  muteButton.addEventListener("click", toggleMute);
   playPauseButton.addEventListener("click", onPlayPause);
-  // fftButton.addEventListener("click", () => getFFTValue());
-  clearButton.addEventListener("click", onClearCanvas);
+  // clearButton.addEventListener("click", onClearCanvas);
 };
 
 const initEventListners = () => {

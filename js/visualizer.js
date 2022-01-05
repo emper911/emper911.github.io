@@ -3,7 +3,7 @@ class Visualizer {
     this.x = x;
     this.y = y;
     this.fftSize = fftSize;
-    this.freqBandArray = Array.from({length: fftSize}, (e, i) => (new frequencyDrawer(x, y, i)));
+    this.freqBandArray = Array.from({length: fftSize}, (e, i) => (new FrequencyDrawer(x, y, i)));
     this.update = this.update.bind(this);
   }
 
@@ -14,10 +14,9 @@ class Visualizer {
   }
 }
 
-class frequencyDrawer {
+class FrequencyDrawer {
   constructor(x,y, iterator) {
     this.scale = (1 ** (iterator)) / 4
-    // this.scale = 1 * (iterator + 1)
     this.x = x;
     this.y = y;
     this.update = this.update.bind(this);
@@ -27,7 +26,7 @@ class frequencyDrawer {
   }
 
   update(decibel) {
-    const db = decibel == Infinity ? 0: decibel * 3;
+    const db = decibel == Infinity || decibel < 15 ? 0: decibel * 3;
     const rx = db + this.scale;
     const ry = db + this.scale;
     this.colorUpdate(db);
@@ -40,12 +39,12 @@ class frequencyDrawer {
     ctx.fillStyle = fillColors[colorPicker];
     ctx.strokeStyle = strokeColors[colorPicker];
     // changes based on db value
-    ctx.lineWidth = 30 * (1700 / db ** (2));
+    ctx.lineWidth = 30 * (1700 / db ** (6/4));
   }
 
   drawEllipse(rx, ry, freq) {
     ctx.beginPath();
-    ctx.ellipse(centerW, centerH, rx, ry, Math.PI / 4, 0, 2 * Math.PI);
+    ctx.ellipse(centerW, centerH, rx, ry, Math.PI * 2, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.closePath();
   }
@@ -66,4 +65,3 @@ class frequencyDrawer {
 //   ctx.lineTo(100, 25);
 //   ctx.fill();
 // }
-// MainVisual = new Visualizer(centerH, centerW);
