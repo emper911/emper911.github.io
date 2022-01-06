@@ -7,7 +7,9 @@ html, body {
 }
 
 #canvas2 {
-    background: #0a0044;
+    /* background: #0a0044; */
+    /* background: #060024; */
+    background: #01152e;
 }
 
 .canvas {
@@ -26,10 +28,17 @@ html, body {
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
-    opacity: 0.4;
-    background: #9D0191;
+    background: #000000c0;
+    color: #ffffff81;
     border: 0;
-    /* box-shadow:1px 1px 3px 3px rgba(235, 235, 235, 0.377);  */
+    box-shadow:1px 1px 30px 1px rgba(255, 255, 255, 0.096);
+}
+
+#start:hover {
+    color: #ffffff;
+    background: #000000;
+    box-shadow:1px 1px 10px 0.5px rgba(255, 255, 255, 0.096);
+    transform: translateY(2px);
 }
 
 #play-pause {
@@ -44,7 +53,7 @@ html, body {
 #mute {
     position: absolute;
     z-index: 999;
-    bottom: 8vh;
+    bottom: 6vh;
     right: 1vw;
     width: 2rem;
     height: 2rem;

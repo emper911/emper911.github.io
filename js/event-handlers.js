@@ -1,6 +1,3 @@
-let draw = false;
-let colorPicker = 0;
-
 const onResize = () => {
   ctx.canvas.height = window.innerHeight;
   ctx.canvas.width = window.innerWidth;
@@ -19,12 +16,10 @@ const buttonEventListners = () => {
   const startButton = document.getElementById("start");
   const muteButton = document.getElementById("mute");
   const playPauseButton = document.getElementById("play-pause");
-  // const clearButton = document.getElementById("clear");
 
   startButton.addEventListener("click", onStartToneJs);
   muteButton.addEventListener("click", toggleMute);
   playPauseButton.addEventListener("click", onPlayPause);
-  // clearButton.addEventListener("click", onClearCanvas);
 };
 
 const initEventListners = () => {

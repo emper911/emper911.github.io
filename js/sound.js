@@ -1,5 +1,5 @@
-const setupSong = () => {  
-  player = new Tone.Player("files/beat3.3.mp3");
+const setupSong = () => {
+  player = new Tone.Player("files/noahslandAllTogether.5.mp3");
   player.autostart = true;
   player.sync();
   // audio analysis
@@ -32,7 +32,6 @@ const onPlayPause = () => {
 };
 
 const toggleMute = () => {
-  // vol.volume.value = vol.volume.value > 0 ? 0 : 1;
   vol.mute = !vol.mute;
   muteButton = document.getElementById("mute");
   if (vol.mute) muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>'
@@ -47,7 +46,7 @@ const onStartToneJs = async () => {
   Tone.Transport.start();
   Tone.Transport.loop = true;
   Tone.Transport.loopStart = "0:0:0";
-  Tone.Transport.loopEnd = "65:0:0";
+  Tone.Transport.loopEnd = "90:0:0";
   const startButton = document.getElementById("start");
   const muteButton = document.getElementById("mute");
   const playPauseButton = document.getElementById("play-pause");
