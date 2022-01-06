@@ -1,6 +1,8 @@
 const onResize = () => {
   ctx.canvas.height = window.innerHeight;
   ctx.canvas.width = window.innerWidth;
+  ctx2.canvas.height = window.innerHeight;
+  ctx2.canvas.width = window.innerWidth;
   centerH = Math.floor(canvas.height / 2);
   centerW = Math.floor(canvas.width / 2);
   resizeStartButton();

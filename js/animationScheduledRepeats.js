@@ -4,6 +4,7 @@ class BgScene1 {
     this.startTime = startTime;
     this.endTime = endTime;
     this.ctx = context;
+    this.started = false;
 
     this.angle = angle;
     this.a = a;
@@ -14,6 +15,10 @@ class BgScene1 {
   }
 
   scheduleRepeatFunction(time) {
+    if(!this.started) {
+      console.log('bg-1');
+      this.started = true;
+    }
     this.angle = (this.angle + 0.01) % (Math.PI * 2);
     this.rotation = (this.rotation + ((Math.PI) / 90)) % (Math.PI * 2);
     this.rotation2 = (this.rotation2 - ((Math.PI) / 90)) % (Math.PI * 2);
@@ -25,7 +30,6 @@ class BgScene1 {
       const freqSorted = frequencies.sort();
       if ( freqSorted[0] > -140 && freqSorted[freqSorted.length - 1] > -19.5 ) {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-        this.ctx.scale(-1, -1);
       } else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
       for (let i = 0; i < 10; i++){
         await setTimeout(2)
@@ -48,7 +52,7 @@ class BgScene1 {
 
 
 class BgScene2 {
-  constructor(interval, startTime, endTime, context, angle = 0, a = 100, rotation = 0, rotation2 = Math.PI * 2) {
+  constructor(interval, startTime, endTime, context, angle = 0, a = 200, rotation = 0, rotation2 = Math.PI * 2) {
     this.interval = interval;
     this.startTime = startTime;
     this.endTime = endTime;
@@ -59,23 +63,25 @@ class BgScene2 {
     this.n = 10;
     this.rotation = rotation;
     this.rotation2 = rotation2;
+    this.started = false;
 
     this.scheduleRepeatFunction = this.scheduleRepeatFunction.bind(this);
   }
-
+  
   scheduleRepeatFunction(time) {
+    if (!this.started) {
+      console.log('bg-2');
+      this.started = true;
+      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    }
     this.angle = (this.angle + 0.01) % (Math.PI * 2);
     this.rotation = (this.rotation + ((Math.PI) / 90)) % (Math.PI * 2);
     this.rotation2 = (this.rotation2 + ((Math.PI) / 90)) % (Math.PI * 2);
     const scaleX = this.a * Math.cos(this.angle * this.n);
     const scaleY = this.a * Math.cos(this.angle * this.n);
-    // const scaleX	=	((a * Math.cos(angle)) /(1 + (Math.sin(angle)) ** 2));  
-    // const scaleY	=	((a * Math.sin(angle) * Math.cos(angle)) / (1 + (Math.sin(angle)) ** 2));
     const freq = getFFTValue();
     
     Tone.Draw.schedule(async () => {
-      if ( freq[0] > -150 && freq[freq.length - 1] > -20 ) this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-      else if (freq[0] < -300 && freq[freqSorted.length - 1] < -300) this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
       for (let i = 0; i < 10; i++){
         await setTimeout(2)
         const x = centerW + (scaleX * i);
@@ -85,10 +91,10 @@ class BgScene2 {
 
         this.ctx.globalAlpha = 0.2;
         this.ctx.lineWidth = 1;
-        // const linesScaled = new Lines(rotated1.rX, rotated1.rY, this.ctx);
-        // linesScaled.update();
-        // const linesScaled2 = new Lines(rotated1.rX, rotated1.rY, this.ctx, true);
-        // linesScaled2.update();
+        const linesScaled = new Lines(rotated1.rX, rotated1.rY, this.ctx);
+        linesScaled.update();
+        const linesScaled2 = new Lines(rotated1.rX, rotated1.rY, this.ctx, true);
+        linesScaled2.update();
         const linesScaled3 = new QuadLine(rotated2.rX, rotated2.rY, this.ctx);
         linesScaled3.update();
         const linesScaled4 = new QuadLine(rotated2.rX, rotated2.rY, this.ctx, true);
@@ -105,6 +111,7 @@ class BgScene3 {
     this.startTime = startTime;
     this.endTime = endTime;
     this.ctx = context;
+    this.started = false;
 
     this.angle = angle;
     this.a = a;
@@ -112,8 +119,13 @@ class BgScene3 {
     this.rotation2 = rotation2;
     this.scheduleRepeatFunction = this.scheduleRepeatFunction.bind(this);
   }
-
+  
   scheduleRepeatFunction(time) {
+    if (!this.started) {
+      console.log('bg-3');
+      this.started = true;
+      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    }
     this.angle = (this.angle + 0.01) % (Math.PI * 2);
     this.rotation = (this.rotation + ((Math.PI) / 90)) % (Math.PI * 2);
     const scaleX	=	((this.a * Math.cos(this.angle)) /(1 + (Math.sin(this.angle)) ** 2));  
@@ -122,8 +134,9 @@ class BgScene3 {
     
     Tone.Draw.schedule(async () => {
       const freqSorted = frequencies.sort();
-      if ( freqSorted[0] > -150 && freqSorted[freqSorted.length - 1] > -20 ) this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-      else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      if ( freqSorted[0] > -140 && freqSorted[freqSorted.length - 1] > -19.5 ) {
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      } else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
       for (let i = 0; i < 10; i++){
         await setTimeout(2)
         const x = centerW + (scaleY * i);
@@ -132,10 +145,8 @@ class BgScene3 {
         this.ctx.globalAlpha = 0.2;
         this.ctx.lineWidth = 1;
         const particle = new Particle(rX, rY, this.ctx);
-        // this.ctx.strokeStyle = "#ededed";
         particle.update();
         const particle2 = new Particle(rY, rX, this.ctx);
-        // this.ctx.strokeStyle = "#ffffff";
         particle2.update();
       }
     }, time);

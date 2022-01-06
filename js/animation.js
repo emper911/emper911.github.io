@@ -26,7 +26,7 @@ class AnimationManager {
   initializeScheduleRepeats() {
     this.schedRepeats.map(sched => {
       Tone.Transport.scheduleRepeat(
-        sched.scheduleRepeatFunction, sched.interval, sched.startTime, sched.endTime)
+        sched.scheduleRepeatFunction, sched.interval, sched.startTime, sched.endTime);
     });
   }
 
@@ -49,7 +49,7 @@ const startAnimation = () => {
   const scheduleRepeats = [
     new BgScene1("0.01", "1:1:0", "16:0:0", ctx2),
     new BgScene2("0.01", "17:0:0", "26:0:0", ctx2),
-    new BgScene3("0.01", "26:0:0", "100:0:0", ctx2),
+    new BgScene3("0.01", "27:0:0", "80:0:0", ctx2),
   ];
   animationManager.setSchedRepeats(scheduleRepeats);
 

@@ -16,7 +16,7 @@ ctx2.canvas.width = window.innerWidth;
 
 // const fillColors = ['#9D0191', '#ffffff', '#FD3A69', '#FECD1A', '#7900FF', '#548CFF', '#93FFD8', '#CFFFDC'];
 // const strokeColors = ['#FECD1A', '#FD3A69','#548CFF', '#93FFD8', '#CFFFDC', '#7900FF', '#120078', '#9D0191'];
-// earth
+// earth tones
 const fillColors = ['#876445', '#CA965C', '#EEC373', '#F4DFBA', '#D06224', '#AE431E', '#8A8635', '#E9C891'];
 const strokeColors = fillColors.reverse();
 // const fillColors = ['#9D0191', '#ffffff', '#FD3A69', '#FECD1A', '#7900FF', '#548CFF', '#93FFD8', '#CFFFDC'];
