@@ -1,5 +1,5 @@
 const setupSong = () => {
-  player = new Tone.Player("files/noahslandAllTogether.5.mp3");
+  player = new Tone.Player("../../files/noahslandAllTogether.5.mp3");
   player.autostart = true;
   player.sync();
   // audio analysis
@@ -46,7 +46,7 @@ const onStartToneJs = async () => {
   Tone.Transport.start();
   Tone.Transport.loop = true;
   Tone.Transport.loopStart = "0:0:0";
-  Tone.Transport.loopEnd = "80:0:0";
+  Tone.Transport.loopEnd = "75:0:0";
   const startButton = document.getElementById("start");
   const muteButton = document.getElementById("mute");
   const playPauseButton = document.getElementById("play-pause");
