@@ -5,25 +5,25 @@ class AnimationManager {
     this.loops = [];
 
     this.start = this.start.bind(this);
-    this.initializeLoops = this.initializeLoops.bind(this);
-    this.initializeSchedRepeats = this.initializeScheduleRepeats.bind(this);
+    this._initializeLoops = this._initializeLoops.bind(this);
+    this._initializeScheduleRepeats = this._initializeScheduleRepeats.bind(this);
     this.setLoops = this.setLoops.bind(this);
     this.setSchedRepeats = this.setSchedRepeats.bind(this);
   }
 
   start() {
-    this.initializeLoops();
-    this.initializeScheduleRepeats();
+    this._initializeLoops();
+    this._initializeScheduleRepeats();
   }
 
-  initializeLoops() {
+  _initializeLoops() {
     this.loops.map(l => {
       const currLoop = new Tone.Loop(l.loopFunction, l.interval);
       currLoop.start(l.startTime);
     });
   }
 
-  initializeScheduleRepeats() {
+  _initializeScheduleRepeats() {
     this.schedRepeats.map(sched => {
       Tone.Transport.scheduleRepeat(
         sched.scheduleRepeatFunction, sched.interval, sched.startTime, sched.endTime);
@@ -48,8 +48,10 @@ const startAnimation = () => {
   animationManager.setLoops(loops);
   const scheduleRepeats = [
     new BgScene1("0.01", "1:1:0", "16:0:0", ctx2),
-    new BgScene2("0.01", "17:0:0", "26:0:0", ctx2),
-    new BgScene3("0.01", "27:0:0", "70:0:0", ctx2),
+    new BgScene2("0.01", "17:0:0", "27:0:0", ctx2),
+    new BgScene3("0.01", "28:0:0", "38:0:0", ctx2),
+    new BgScene4("0.01", "38:0:0", "61:0:0", ctx2),
+    new BgScene5("0.01", "60:0:0", "75:0:0", ctx2),
   ];
   animationManager.setSchedRepeats(scheduleRepeats);
 

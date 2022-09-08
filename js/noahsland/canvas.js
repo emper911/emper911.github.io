@@ -5,8 +5,8 @@ class Root {
     this.context = context;
     this.speedX = Math.random() * 6 - 2;
     this.speedY = Math.random() * 3 - 2;
-    this.maxSize = Math.random() * 9 + 5;
-    this.size = Math.random() * 10 + 2;
+    this.maxSize = Math.random() * 9 + 1;
+    this.size = Math.random() * 7 + 1;
     this.angle = Math.random() * 6.2;
     this.update = this.update.bind(this);
   }
@@ -18,8 +18,7 @@ class Root {
     this.angle += 0.1;
     if (this.size < this.maxSize) {
       this.context.beginPath()
-      // ctx.rect(this.x, this.y, this.size, Math.PI * 2);
-      this.context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      this.context.rect(this.x, this.y, this.size, Math.PI * 2);
       this.context.fill();
       this.context.stroke();
       requestAnimationFrame(this.update);
@@ -116,26 +115,3 @@ const rotater = (x, y, r) => {
   const rY = (x * Math.sin(r)) + (y * Math.cos(r));
   return { rX , rY };
 }
-
-//event based
-
-const onMouseMove = (e) => {
-  if (draw) {
-    const root = new Root(e.x, e.y, ctx);
-    root.update();
-  }
-};
-
-const onMouseDown = () => {
-  colorPicker = (colorPicker + 1) % 4;
-  ctx.fillStyle = fillColors[colorPicker];
-  ctx.strokeStyle = strokeColors[colorPicker];
-  draw = true;
-};
-const onMouseUp = () => {
-  draw = false;
-};
-
-const onClearCanvas = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-};

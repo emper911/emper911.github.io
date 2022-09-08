@@ -18,6 +18,11 @@ class BgScene1 {
     if(!this.started) {
       console.log('bg-1');
       this.started = true;
+      this.ctx.translate(0, 0);
+      this.ctx.save();
+      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      this.ctx.restore();
     }
     this.angle = (this.angle + 0.01) % (Math.PI * 2);
     this.rotation = (this.rotation + ((Math.PI) / 90)) % (Math.PI * 2);
@@ -29,10 +34,19 @@ class BgScene1 {
     Tone.Draw.schedule(async () => {
       const freqSorted = frequencies.sort();
       if ( freqSorted[0] > -140 && freqSorted[freqSorted.length - 1] > -19.5 ) {
+        await setTimeout(8);
+        this.ctx.save();
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0); 
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-      } else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.restore();
+      } else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) {
+        this.ctx.save();
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0); 
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.restore();
+      }
       for (let i = 0; i < 10; i++){
-        await setTimeout(2)
+        await setTimeout(2);
         const x = centerW + (scaleX * i);
         const y = centerH + (scaleY * i);
         const {rX, rY} = rotater(x, y, this.rotation);
@@ -57,6 +71,7 @@ class BgScene2 {
     this.startTime = startTime;
     this.endTime = endTime;
     this.ctx = context;
+    this.ctx 
 
     this.angle = angle;
     this.a = a;
@@ -72,7 +87,11 @@ class BgScene2 {
     if (!this.started) {
       console.log('bg-2');
       this.started = true;
+      this.ctx.translate(centerW, centerH);
+      this.ctx.save();
+      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      this.ctx.restore();
     }
     this.angle = (this.angle + 0.01) % (Math.PI * 2);
     this.rotation = (this.rotation + ((Math.PI) / 90)) % (Math.PI * 2);
@@ -104,7 +123,6 @@ class BgScene2 {
   }
 }
 
-
 class BgScene3 {
   constructor(interval, startTime, endTime, context, angle = 0, a = 100, rotation = 0, rotation2 = Math.PI * 2) {
     this.interval = interval;
@@ -124,7 +142,10 @@ class BgScene3 {
     if (!this.started) {
       console.log('bg-3');
       this.started = true;
+      this.ctx.save();
+      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      this.ctx.restore();
     }
     this.angle = (this.angle + 0.01) % (Math.PI * 2);
     this.rotation = (this.rotation + ((Math.PI) / 90)) % (Math.PI * 2);
@@ -134,9 +155,128 @@ class BgScene3 {
     
     Tone.Draw.schedule(async () => {
       const freqSorted = frequencies.sort();
-      if ( freqSorted[0] > -140 && freqSorted[freqSorted.length - 1] > -19.5 ) {
+      if ( freqSorted[0] > -140 && freqSorted[freqSorted.length - 1] > -21.5 ) {
+        await setTimeout(8);
+        this.ctx.save();
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.restore();
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
       } else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      for (let i = 0; i < 10; i++){
+        await setTimeout(2)
+        const x = centerW + (scaleY * i);
+        const y = centerH + (scaleX * i);
+        const {rX, rY} = rotater(x, y, this.rotation);
+        this.ctx.globalAlpha = 0.2;
+        this.ctx.lineWidth = 1;
+        const particle = new Particle(rX, rY, this.ctx);
+        particle.update();
+        const particle2 = new Particle(rY, rX, this.ctx);
+        particle2.update();
+      }
+    }, time);
+  }
+}
+
+class BgScene4 {
+  constructor(interval, startTime, endTime, context, angle = 0, a = 100, rotation = 0, rotation2 = Math.PI * 2) {
+    this.interval = interval;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.ctx = context;
+    this.started = false;
+
+    this.angle = angle;
+    this.a = a;
+    this.rotation = rotation;
+    this.rotation2 = rotation2;
+    this.scheduleRepeatFunction = this.scheduleRepeatFunction.bind(this);
+  }
+  
+  scheduleRepeatFunction(time) {
+    if (!this.started) {
+      console.log('bg-4');
+      this.started = true;
+      this.ctx.save();
+      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      this.ctx.restore();
+    }
+    this.angle = (this.angle + 0.01) % (Math.PI * 2);
+    this.rotation = (this.rotation + ((Math.PI) / 90)) % (Math.PI * 2);
+    const scaleX	=	((this.a * Math.cos(this.angle)) /(1 + (Math.sin(this.angle)) ** 2));  
+    const scaleY	=	((this.a * Math.sin(this.angle) * Math.cos(this.angle)) / (1 + (Math.sin(this.angle)) ** 2));
+    const frequencies = getFFTValue();
+    
+    Tone.Draw.schedule(async () => {
+      const freqSorted = frequencies.sort();
+      if ( freqSorted[15] > -120 && freqSorted[freqSorted.length - 16] > -20.5 ) {
+        this.ctx.save();
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.restore();
+      } else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) {
+        this.ctx.save();
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0); 
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.restore();
+      }
+      for (let i = 0; i < 10; i++){
+        await setTimeout(2)
+        const x = centerW + (scaleY * i);
+        const y = centerH + (scaleX * i);
+        const {rX, rY} = rotater(x, y, this.rotation);
+        this.ctx.globalAlpha = 0.2;
+        this.ctx.lineWidth = 1;
+        const particle = new Particle(rX, rY, this.ctx);
+        particle.update();
+        const particle2 = new Particle(rY, rX, this.ctx);
+        particle2.update();
+      }
+    }, time);
+  }
+}
+
+
+class BgScene5 {
+  constructor(interval, startTime, endTime, context, angle = 0, a = 100, rotation = 0, rotation2 = Math.PI * 2) {
+    this.interval = interval;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.ctx = context;
+    this.started = false;
+
+    this.angle = angle;
+    this.a = a;
+    this.rotation = rotation;
+    this.rotation2 = rotation2;
+    this.scheduleRepeatFunction = this.scheduleRepeatFunction.bind(this);
+  }
+  
+  scheduleRepeatFunction(time) {
+    if (!this.started) {
+      console.log('bg-5');
+      this.started = true;
+      this.ctx.save();
+      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      this.ctx.restore();
+    }
+    this.angle = (this.angle + 0.01) % (Math.PI * 2);
+    this.rotation = (this.rotation + ((Math.PI) / 90)) % (Math.PI * 2);
+    const scaleX	=	((this.a * Math.cos(this.angle)) /(1 + (Math.sin(this.angle)) ** 2));  
+    const scaleY	=	((this.a * Math.sin(this.angle) * Math.cos(this.angle)) / (1 + (Math.sin(this.angle)) ** 2));
+    const frequencies = getFFTValue();
+    
+    Tone.Draw.schedule(async () => {
+      const freqSorted = frequencies.sort();
+      // if ( freqSorted[15] > -140 && freqSorted[freqSorted.length - 16] > -19.5 ) {
+      //   this.ctx.save();
+      //   this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+      //   this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      //   this.ctx.restore();
+      // } else if (freqSorted[0] < -300 && freqSorted[freqSorted.length - 1] < -300) this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
       for (let i = 0; i < 10; i++){
         await setTimeout(2)
         const x = centerW + (scaleY * i);

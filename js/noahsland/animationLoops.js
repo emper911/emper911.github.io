@@ -1,6 +1,8 @@
 class MainEqVisualLoop {
   constructor(interval, startTime = 0) {
-    this.visualizer = new Visualizer(centerW, centerH);
+    const visualizerSize = isMobile() ? 2 : 1;
+    // const visualizerSize = 1;
+    this.visualizer = new Visualizer(0, 0, visualizerSize);
     this.interval = interval;
     this.startTime = startTime;
     this.loopFunction = this.loopFunction.bind(this);
@@ -9,7 +11,12 @@ class MainEqVisualLoop {
   loopFunction(time) {
     Tone.Draw.schedule(() => {
       // do drawing or DOM manipulation here
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.save();
+      // Use the identity matrix while clearing the canvas
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Restore the transform
+      ctx.restore();
       const frequencies = getFFTValue();
       this.visualizer.update(frequencies);
     }, time);
