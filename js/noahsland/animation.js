@@ -50,8 +50,8 @@ const startAnimation = () => {
     new BgScene1("0.01", "1:1:0", "16:0:0", ctx2),
     new BgScene2("0.01", "17:0:0", "27:0:0", ctx2),
     new BgScene3("0.01", "28:0:0", "38:0:0", ctx2),
-    new BgScene4("0.01", "38:0:0", "61:0:0", ctx2),
-    new BgScene5("0.01", "60:0:0", "75:0:0", ctx2),
+    new BgScene4("0.01", "39:0:0", "60:0:0", ctx2),
+    new BgScene5("0.01", "61:0:0", "75:0:0", ctx2),
   ];
   animationManager.setSchedRepeats(scheduleRepeats);
 
