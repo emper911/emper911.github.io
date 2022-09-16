@@ -1,0 +1,79 @@
+html, body{
+  font-family: Helvetica, sans-serif;
+  margin: 0px;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+}
+
+.content {
+  margin: 0px;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 10% 50% 30% 10%;
+  grid-template-areas: 
+  "header"
+  "main"
+  "sidebar"
+  "footer";
+}
+
+.title {
+  grid-area: header;
+  justify-self: center;
+  align-self: bottom;
+  z-index: 999;
+  color: white;
+}
+
+#discography {
+  grid-area: sidebar;
+  justify-self: center;
+  align-self: center;
+  z-index: 999;
+}
+.discography-title {
+  margin: 0;
+}
+
+.discography-item {
+}
+
+#socialmedia {
+  grid-area: footer;
+  justify-items: center;
+  align-self: center;
+  z-index: 999;
+  margin-left: 12%;
+}
+#socialmedia > a {
+  margin: 1%;
+}
+
+.links {
+  text-decoration: none;
+  color: rgba(245, 245, 245, 0.913);
+}
+.links:hover {
+  color: rgba(181, 181, 181, 0.833);
+}
+
+.canvas {
+  display: block;
+  position: absolute;
+  /* top: 0%; */
+  /* left: 0%; */
+  /* background: #060024; THIS IS A REALLY NICE COLOR */
+  background: #000000;
+}
+
+.canvas-container {
+  display: block;
+  position: relative;
+}
+
