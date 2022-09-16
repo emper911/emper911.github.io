@@ -1,29 +1,79 @@
 html, body {
+    font-family: Helvetica, sans-serif;
     margin: 0px;
     padding: 0;
     box-sizing: border-box;
     height: 100vh;
     width: 100vw;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 20% 50% 30%;
+    grid-template-areas: 
+    ". header header ."
+    ". main main ."
+    ". footer footer sidebar";
+}
+
+.title {
+    grid-area: header;
+    justify-self: center;
+    align-self: end;
+    z-index: 999;
+    color: white;
+}
+
+#discography {
+    grid-area: sidebar;
+    justify-self: stretch;
+    align-self: stretch;
+    margin-left: 60%;
+    margin-top: 10%;
+}
+.discography-title {
+    margin: 0;
+    margin-left: 10%;
+}
+
+.discography-item {
+    /* margin: 0; */
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 20%;
+}
+
+#socialmedia {
+    grid-area: footer;
+    justify-items: stretch;
+    align-self: end;
+    margin-left: 33.33%;
+    margin-bottom: 5%;
+    z-index: 999;
+}
+#socialmedia > a {
+    margin: 1%;
 }
 
 #canvas2 {
     /* background: #0a0044; */
     /* background: #060024; */
-    background: #01152e;
+    /* background: #01152e; */
+    background: #00000000;
 }
 
-#noahsland-link {
-    color: white;
-    z-index: 999;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+.links {
+    text-decoration: none;
+    color: rgba(245, 245, 245, 0.913);
 }
+.links:hover {
+    color: rgba(181, 181, 181, 0.833);
+}
+
 
 .canvas {
     display: block;
     position: absolute;
-    background: #060024;
+    /* background: #060024; THIS IS A REALLY NICE COLOR */
+    background: #000000;
 }
 
 .canvas-container {

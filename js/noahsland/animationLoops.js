@@ -1,6 +1,7 @@
 class MainEqVisualLoop {
   constructor(interval, startTime = 0) {
     const visualizerSize = isMobile() ? 2 : 1;
+    console.log(isMobile());
     // const visualizerSize = 1;
     this.visualizer = new Visualizer(0, 0, visualizerSize);
     this.interval = interval;

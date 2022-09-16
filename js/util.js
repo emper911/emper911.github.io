@@ -4,6 +4,8 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+const remToPixels = (rem) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
 const degreesToRadians = deg => (deg * Math.PI) / 180.0;
 
 const isMobile = () => {

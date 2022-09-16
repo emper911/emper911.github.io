@@ -50,8 +50,6 @@ const onClearCanvas = () => {
 };
 
 const onResizeCanvas = () => {
-  // ctx.save();
-  // ctx2.save();
   ctx.canvas.height = window.innerHeight;
   ctx.canvas.width = window.innerWidth;
   ctx2.canvas.height = window.innerHeight;
@@ -59,8 +57,6 @@ const onResizeCanvas = () => {
   centerH = Math.floor(canvas.height / 2);
   centerW = Math.floor(canvas.width / 2);
   ctx.translate(centerW, centerH);
-  // ctx.restore();
-  // ctx2.restore();
 }
 
 const onResize = () => {
