@@ -5,6 +5,7 @@ html, body{
   box-sizing: border-box;
   height: 100vh;
   width: 100vw;
+  background-color: #01152e;
 }
 
 .content {
@@ -14,13 +15,13 @@ html, body{
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-columns: 100%;
+  grid-template-columns: auto;
   grid-template-rows: 10% 50% 30% 10%;
   grid-template-areas: 
-  "header"
-  "main"
-  "sidebar"
-  "footer";
+  ". header ."
+  ". main ."
+  ". sidebar ."
+  ". footer .";
 }
 
 .title {
@@ -47,12 +48,15 @@ html, body{
 #socialmedia {
   grid-area: footer;
   justify-items: center;
-  align-self: center;
+  /* align-self: center; */
   z-index: 999;
-  margin-left: 12%;
+  /* margin-left: 12%; */
 }
 #socialmedia > a {
   margin: 1%;
+}
+#socialmedia > a:first-child {
+  margin-left: 2%;
 }
 
 .links {
@@ -69,7 +73,7 @@ html, body{
   /* top: 0%; */
   /* left: 0%; */
   /* background: #060024; THIS IS A REALLY NICE COLOR */
-  background: #000000;
+  background: #01152e;
 }
 
 .canvas-container {

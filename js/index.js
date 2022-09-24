@@ -5,9 +5,8 @@
 const canvas = document.getElementById("canvas1");
 /** @type {CanvasRenderingContext2D} */
 const ctx = canvas.getContext("2d");
-ctx.canvas.height = window.innerHeight;
-ctx.canvas.width = window.innerWidth;
-
+let centerH = Math.floor(ctx.canvas.height / 2);
+let centerW = Math.floor(ctx.canvas.width / 2);
 const mouse = {
   x: null,
   y: null,
@@ -20,16 +19,21 @@ window.addEventListener('mouseover', (e) => {
 const particleArray = [];
 const numParticles = 5000;
 
-const img = new Image();
-img.src = '../files/P1000043.JPG';
-img.addEventListener('load', () => {
-  if (isMobile()) {
-    ctx.drawImage(img, ctx.canvas.width / 10, ctx.canvas.height / 4, remToPixels(20), remToPixels(15));
-  } else {
-    ctx.drawImage(img, ctx.canvas.width / 3, ctx.canvas.height / 4, remToPixels(40), remToPixels(30));
-  }
 
-  
+let img = new Image();
+// img.src = '../files/P1000043.JPG';
+// img.src = '../files/P1000831.JPG';
+img.src = '../files/Noah\'s Land_Album_Art.png';
+const drawScaledImage = () => {
+  img.width = (isMobile()) ? img.naturalWidth * 0.75 : img.naturalWidth * 0.5;
+  img.height = (isMobile()) ? img.naturalHeight * 0.75 : img.naturalHeight * 0.5;;
+  const imgX = centerW - (img.width / 2);
+  const imgY = centerH - (img.height / 2);
+  ctx.drawImage(img, imgX, imgY, img.width, img.height );
+}
+
+img.addEventListener('load', () => {
+  drawScaledImage();
   const init = () => {
     for (let y = 0; y < numParticles; y++) {
       particleArray.push(new Particle);
@@ -41,7 +45,6 @@ img.addEventListener('load', () => {
 
 
 });
-
 
 const grayScaleImage = (ctx) => {
   const scannedImage = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -89,15 +92,14 @@ const onResizeCanvas = () => {
   ctx.canvas.height = window.innerHeight;
   ctx.canvas.width = window.innerWidth;
   ctx.restore();
-  if (isMobile()) {
-    ctx.drawImage(img, ctx.canvas.width / 10, ctx.canvas.height / 4, remToPixels(20), remToPixels(15));
-    // ctx.drawImage(img, ctx.canvas.width / 3, ctx.canvas.height / 4, (canvas.width / 3) * 1, (canvas.height / 4) * 2);
-  } else {
-    ctx.drawImage(img, ctx.canvas.width / 3, ctx.canvas.height / 4, remToPixels(40), remToPixels(30));
-  }
-  // ctx.drawImage(img, ctx.canvas.width / 3, ctx.canvas.height / 4, remToPixels(40), remToPixels(30));
-  // ctx.drawImage(img, ctx.canvas.width / 3, ctx.canvas.height / 4, (canvas.width / 3) * 1, (canvas.height / 4) * 2);
+  centerH = Math.floor(ctx.canvas.height / 2);
+  centerW = Math.floor(ctx.canvas.width / 2);
+  drawScaledImage();
 }
 window.addEventListener("resize", () => {
   onResizeCanvas();
-})
+});
+
+window.addEventListener("load", () => {
+  onResizeCanvas();
+});

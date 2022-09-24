@@ -15,11 +15,12 @@ html, body {
     width: 100vw;
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows: 20% 50% 30%;
+    grid-template-rows: 10% 80% 5% 5%;
     grid-template-areas: 
     ". header header ."
     ". main main ."
-    ". footer footer sidebar";
+    ". sidebar sidebar ."
+    ". footer footer .";
   }
 
 .title {
@@ -32,29 +33,32 @@ html, body {
 
 #discography {
     grid-area: sidebar;
-    justify-self: stretch;
-    align-self: stretch;
-    margin-left: 60%;
-    margin-top: 10%;
+    justify-self: center;
+    align-self: center;
+    /* margin-left: 60%; */
+    /* margin-top: 10%; */
 }
 .discography-title {
-    margin: 0;
-    margin-left: 10%;
+    /* margin: 0; */
+    /* margin-left: 10%; */
 }
 
 .discography-item {
     /* margin: 0; */
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: 20%;
+    /* margin-top: 5%; */
+    /* margin-bottom: 5%; */
+    /* margin-left: 20%; */
 }
 
 #socialmedia {
     grid-area: footer;
-    justify-items: stretch;
+    /* justify-self: center; */
+    justify-items: center;
     align-self: end;
-    margin-left: 33.33%;
-    margin-bottom: 5%;
+    align-items: center;
+    /* margin-left: 33%; */
+    /* margin-top: 5%; */
+    margin-bottom: 2%;
     z-index: 999;
 }
 #socialmedia > a {
@@ -74,7 +78,7 @@ html, body {
     display: block;
     position: absolute;
     /* background: #060024; THIS IS A REALLY NICE COLOR */
-    background: #000000;
+    background: #01152e;
 }
 
 .canvas-container {
