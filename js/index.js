@@ -25,10 +25,10 @@ let img = new Image();
 // img.src = '../files/P1000831.JPG';
 img.src = '../files/Noah\'s Land_Album_Art.png';
 const drawScaledImage = () => {
-  img.width = (isMobile()) ? img.naturalWidth * 0.75 : img.naturalWidth * 0.5;
-  img.height = (isMobile()) ? img.naturalHeight * 0.75 : img.naturalHeight * 0.5;;
+  img.width = (isMobile()) ? img.naturalWidth * 0.25 : img.naturalWidth * 0.5;
+  img.height = (isMobile()) ? img.naturalHeight * 0.25 : img.naturalHeight * 0.5;;
   const imgX = centerW - (img.width / 2);
-  const imgY = centerH - (img.height / 2);
+  const imgY = (isMobile()) ? centerH - (img.height) : centerH - (img.height / 2);
   ctx.drawImage(img, imgX, imgY, img.width, img.height );
 }
 

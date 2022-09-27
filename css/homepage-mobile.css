@@ -16,7 +16,7 @@ html, body{
   width: 100vw;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 10% 50% 30% 10%;
+  grid-template-rows: 10% 40% 15% 35%;
   grid-template-areas: 
   ". header ."
   ". main ."
@@ -34,15 +34,20 @@ html, body{
 
 #discography {
   grid-area: sidebar;
-  justify-self: center;
-  align-self: center;
   z-index: 999;
+  justify-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .discography-title {
   margin: 0;
 }
 
 .discography-item {
+  font-size: medium;  
+
 }
 
 #socialmedia {
@@ -51,6 +56,14 @@ html, body{
   /* align-self: center; */
   z-index: 999;
   /* margin-left: 12%; */
+  display: grid;
+  grid-template-columns: 50%;
+  grid-template-rows: 25%;
+  grid-template-areas: 
+  "spotify apple"
+  "bandcamp soundcloud"
+  "youtube instagram"
+  "tiktok mail";
 }
 #socialmedia > a {
   margin: 1%;
@@ -59,14 +72,79 @@ html, body{
   margin-left: 2%;
 }
 
+.spotify {
+  grid-area: spotify;
+  justify-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.apple {
+  grid-area: apple;
+  justify-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    
+}
+.bandcamp {
+  grid-area: bandcamp;
+  justify-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.soundcloud {
+  grid-area: soundcloud;
+  justify-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.youtube {
+  grid-area: youtube;
+  justify-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.instagram {
+  grid-area: instagram;
+  justify-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tiktok {
+  grid-area: tiktok;
+  justify-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mail {
+  grid-area: mail;
+  justify-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .links {
   text-decoration: none;
   color: rgba(245, 245, 245, 0.913);
+  border:2px solid rgba(255, 255, 255, 0.369);
+  border-radius: 3%;
+  padding: 15%;
 }
 .links:hover {
   color: rgba(181, 181, 181, 0.833);
 }
-
+/* i {
+  margin-left: 40%;
+  margin-top: 10%;
+} */
 .canvas {
   display: block;
   position: absolute;
