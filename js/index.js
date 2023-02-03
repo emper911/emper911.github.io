@@ -23,7 +23,8 @@ const numParticles = 5000;
 let img = new Image();
 // img.src = '../files/P1000043.JPG';
 // img.src = '../files/P1000831.JPG';
-img.src = '../files/AlbumArt1.jpg';
+// img.src = '../files/AlbumArt1.jpg';
+img.src = "../files/Shuffle Till I'm There Art.png";
 const drawScaledImage = () => {
   img.width = (isMobile()) ? img.naturalWidth * 0.25 : img.naturalWidth * 0.5;
   img.height = (isMobile()) ? img.naturalHeight * 0.25 : img.naturalHeight * 0.5;;
