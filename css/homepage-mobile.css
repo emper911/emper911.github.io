@@ -1,163 +1,116 @@
-html, body{
-  font-family: Helvetica, sans-serif;
-  margin: 0px;
+/* General Settings */
+html, body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
-  height: 100vh;
   width: 100%;
-  background-color: #01152e;
+  height: 100%;
+  font-size: 16px; /* Base font size for better readability */
+  overflow: hidden;
 }
 
+/* Canvas */
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Main Content Container */
 .content {
-  margin: 0px;
-  padding: 0;
-  box-sizing: border-box;
+  z-index: 1000;
+  position: absolute; /* Ensuring it's above the canvas */
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: 10% 40% 15% 35%;
   grid-template-areas: 
-  ". header ."
-  ". main ."
-  ". sidebar ."
-  ". footer .";
+    "social"
+    "discography";
+  grid-template-rows: 50%  50%; /* Social media links will take the space they need, rest will be for discography */
+  justify-items: center;
+  /* align-content: center; */
+  /* overflow: scroll; */
 }
 
+/* Title */
 .title {
-  grid-area: header;
-  justify-self: center;
-  align-self: bottom;
-  z-index: 999;
   color: white;
-}
-
-#discography {
-  grid-area: sidebar;
-  z-index: 999;
-  justify-self: stretch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
-}
-.discography-title {
-  margin: 0;
+  margin-bottom: 2rem;
 }
 
-.discography-item {
-  font-size: medium;  
-
+/* Discography */
+#discography {
+  grid-area: discography;
+  width: 75vw;
+  overflow: scroll;
+  margin-top: 4vh;
 }
-#noahsland {
-  padding: 15%;
+
+#discography a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  transition: all 1.5s ease; /* smooth transition for hover effects */
+}
+
+#discography a:hover {
+  transform: scale(1.02); /* slightly enlarge the element */
+  filter: brightness(0.9); /* increase brightness */
+}
+
+#discography img {
+  width: 100%;
+  height: auto;
+}
+
+/* Social Media Links */
+#socialmedia {
+  grid-area: social;
+  margin-top: 2vh;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, minmax(40px, 1fr)); /* Adaptable rows based on content */
+  justify-items: center;
+  gap: 1rem;
+}
+
+.social-header {
+  font-size: 1.2rem;  /* Increased font size from 1.2rem to 1.5rem */
 }
 
 #socialmedia {
-  grid-area: footer;
-  justify-items: center;
-  /* align-self: center; */
-  z-index: 999;
-  /* margin-left: 12%; */
-  display: grid;
-  grid-template-columns: 50%;
-  grid-template-rows: 25%;
-  grid-template-areas: 
-  "spotify apple"
-  "bandcamp soundcloud"
-  "youtube instagram"
-  "tiktok mail";
-}
-#socialmedia > a {
-  margin: 1%;
-}
-#socialmedia > a:first-child {
-  margin-left: 2%;
+  color: white;
 }
 
-.spotify {
-  grid-area: spotify;
-  justify-self: stretch;
+#socialmedia a {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
+  gap: 0.5rem;
+  padding: 0.5vw 6vh; /* Adding some padding */
+  border: 1px solid rgba(253, 251, 251, 0.667); /* Soft border */
+  border-radius: 15px; /* Rounded corners */
 }
-.apple {
-  grid-area: apple;
-  justify-self: stretch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-    
-}
-.bandcamp {
-  grid-area: bandcamp;
-  justify-self: stretch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.soundcloud {
-  grid-area: soundcloud;
-  justify-self: stretch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.youtube {
-  grid-area: youtube;
-  justify-self: stretch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.instagram {
-  grid-area: instagram;
-  justify-self: stretch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.tiktok {
-  grid-area: tiktok;
-  justify-self: stretch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.mail {
-  grid-area: mail;
-  justify-self: stretch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+#socialmedia i {
+  font-size: 1.5rem;
 }
 
 .links {
   text-decoration: none;
   color: rgba(245, 245, 245, 0.913);
-  border:2px solid rgba(255, 255, 255, 0.369);
-  border-radius: 3%;
-  /* padding: 15%; */
+  font-size: 1.2rem; 
 }
+
 .links:hover {
   color: rgba(181, 181, 181, 0.833);
 }
-/* i {
-  margin-left: 40%;
-  margin-top: 10%;
-} */
-.canvas {
-  display: block;
-  position: absolute;
-  /* top: 0%; */
-  /* left: 0%; */
-  /* background: #060024; THIS IS A REALLY NICE COLOR */
-  background: #01152e;
-}
 
-.canvas-container {
-  display: block;
-  position: relative;
+.scroll-indicator {
+  display: none;
 }
-

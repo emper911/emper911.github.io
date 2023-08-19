@@ -50,9 +50,12 @@ const onStartToneJs = async () => {
   const startButton = document.getElementById("start");
   const muteButton = document.getElementById("mute");
   const playPauseButton = document.getElementById("play-pause");
+  const links = document.getElementById("latest");
+
   startButton.style.display = "none";
   playPauseButton.style.display = "block";
   muteButton.style.display = "block";
+  links.style.display = "block";
   startAnimation();
 };
 

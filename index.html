@@ -5,55 +5,60 @@
     <link href="css/homepage.css" media="screen and (min-width: 900px)" rel="stylesheet">
     <link rel="stylesheet" media="screen and (max-width: 899px)" href="css/homepage-mobile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <meta charset="utf-8">
     <meta name="theme-color" content="#01152e"/>
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" > -->
-    <!-- <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;"/> -->
     <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, maximum-scale=1, initial-scale=1"/>
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="description" content="Midi Neutron's official website, featuring latest tracks and updates.">
+    <meta name="author" content="Midi Neutron">
   </head>
   
   <body>
-    <div class="canvas-container">
-      <canvas class="canvas" id="canvas1"></canvas>
+    <div class="canvas-container" id="container">
+      <!-- <canvas class="canvas" id="canvas1"></canvas> -->
     </div>
     <div class="content">
-      <h1 class="title">Midi Neutron</h1>
-      <div class="title" id="discography">
-        <!-- <h4 class="discography-title">SINGLES:</h4> -->
-        <h5 class="discography-item"><a class="links" id="noahsland" href="html/noahsland.html">Noah's Land Visualizer</a></h5>
-        <!-- <h4 class="discography-title">EP:</h4>
-        <h5 class="discography-item"><a class="links">Coming soon...</a></h5> -->
-      </div>
-      <div id="socialmedia">
-        <a class="spotify links" target="_blank" href="https://open.spotify.com/track/6A6nPLNAzpJgvPojc77sl1?si=7560835cdf8343f0">
-          <i class="fa-brands fa-spotify fa-2x"></i>
+      <section class="title" id="discography">
+        <a class="links" id="latest" href="https://open.spotify.com/track/6A6nPLNAzpJgvPojc77sl1?si=0680a0da65c049ee" aria-label="Latest release">
+          <img src="files/Shuffle Till I'm There Art small.png" alt="Shuffle till I'm there" />
+          <h5>Shuffle Till I'm There</h5>
         </a>
-        <a class="apple links" target="_blank" href="https://music.apple.com/to/album/shuffle-till-im-there/1666441491?i=1666441493">
-          <i class="fa-brands fa-apple fa-2x"></i>
+        <a class="links" id="noahsland" href="html/noahsland.html" aria-label="link to Noah's Land web visualizer">
+          <img src="files/Noah's Land_Album_Art small.png" alt="Noah's Land Visualizer" />
+          <h5>Noah's Land Visualizer</h5>
         </a>
-        <a class="bandcamp links" target="_blank" href="https://midineutron.bandcamp.com/">
-          <i class="fa-brands fa-bandcamp fa-2x"></i>
-        </a>
-        <a class="soundcloud links" target="_blank" href="https://soundcloud.com/midineutron">
-          <i class="fa-brands fa-soundcloud fa-2x"></i>
-        </a>
-        <a class="youtube links" target="_blank" href="https://www.youtube.com/channel/UCRlXS0kGxWDKaf82hEbUV8w">
-          <i class="fa-brands fa-youtube fa-2x"></i>
-        </a>
-        <a class="instagram links" target="_blank" href="https://www.instagram.com/midi.neutron/">
-          <i class="fa-brands fa-instagram fa-2x"></i>
-        </a>
-        <a class="tiktok links" target="_blank" href="https://www.tiktok.com/@midineutron1">
-          <i class="fa-brands fa-tiktok fa-2x"></i>
-        </a>
-        <a class="mail links" target="_blank" href="mailto:midineutron1@gmail.com">
-          <i class="fa-solid fa-envelope fa-2x"></i>
-        </a>
-      
-       
-       
-      </div>
+      </section>
+      <nav id="socialmedia">
+        <div class="social-header">
+          <h1>Midi Neutron</h1>
+        </div>
+        <div id="link-list">
+          <a class="spotify links" target="_blank" href="https://open.spotify.com/artist/5jxuskvAdNkMqTX6j9JSYN?si=RgDghSWVRtyDphrThwLb4Q" aria-label="Midi Neutron on Spotify">
+            <i class="fa-brands fa-spotify fa-2x"></i>
+            <p>Spotify</p>
+          </a>
+          <a class="apple links" target="_blank" href="https://music.apple.com/us/artist/midi-neutron/1644579698" aria-label="Midi Neutron on Apple Music">
+            <i class="fa-brands fa-apple fa-2x"></i>
+            <p>Apple Music</p>
+          </a>
+          <a class="bandcamp links" target="_blank" href="https://midineutron.bandcamp.com/" aria-label="Midi Neutron on bandcamp">
+            <i class="fa-brands fa-bandcamp fa-2x"></i>
+            <p>Bandcamp</p>
+          </a>
+          <a class="instagram links" target="_blank" href="https://www.instagram.com/midi.neutron/" aria-label="Midi Neutron on Instagram">
+            <i class="fa-brands fa-instagram fa-2x"></i>
+            <p>Instagram</p>
+          </a>
+          <a class="mail links" target="_blank" href="mailto:midineutron1@gmail.com" aria-label="Email Midi Neutron">
+            <i class="fa-solid fa-envelope fa-2x"></i>
+            <p>Contact</p>
+          </a>
+        </div>
+      </nav>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
     </div>
 
     <script src="js/util.js" type="text/javascript"></script>
