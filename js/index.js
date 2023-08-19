@@ -1,106 +1,98 @@
-/******************************/
-/** Canvas and window Globals */
-/******************************/
-/** @type {HTMLCanvasElement} */
-const canvas = document.getElementById("canvas1");
-/** @type {CanvasRenderingContext2D} */
-const ctx = canvas.getContext("2d");
-let centerH = Math.floor(ctx.canvas.height / 2);
-let centerW = Math.floor(ctx.canvas.width / 2);
-const mouse = {
-  x: null,
-  y: null,
-  radius: 150,
-};
-window.addEventListener('mouseover', (e) => {
-  mouse.x = e.x;
-  mouse.y = e.y;
+window.addEventListener('load', ()=> {
+  const section = document.getElementsByTagName("section")[0];
+  // console.log(discography)
+  // Select all the social media links
+  const socialLinks = document.querySelectorAll("#socialmedia a");
+  // Define a base offset (can adjust as needed)
+  const baseOffset = 2;
+  
+  // Iterate over each link and adjust its left style based on its index
+  if (isMobile()) {
+    mobileSpecificFunctionality();
+  } else {
+    desktopSpecificFunctionality();
+  }
+
+  function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+  }
+
+  function mobileSpecificFunctionality() {
+    console.log("mobile functionality included");
+  }
+
+  function desktopSpecificFunctionality() {
+    socialLinks.forEach((link, index) => {
+      link.style["margin-left"] = `${baseOffset * index}vw`;
+    });
+
+    section.addEventListener("scroll", function() {
+      let scrollIndicator = document.querySelector(".scroll-indicator");
+      if (section.scrollTop > 0) {  // Adjust this value as needed
+          scrollIndicator.style.opacity = "0";
+      } else {
+          scrollIndicator.style.opacity = "0.7";
+      }
+    });
+  }
 });
-const particleArray = [];
-const numParticles = 5000;
 
 
-let img = new Image();
-// img.src = '../files/P1000043.JPG';
-// img.src = '../files/P1000831.JPG';
-// img.src = '../files/AlbumArt1.jpg';
-img.src = "../files/Shuffle Till I'm There Art.png";
-const drawScaledImage = () => {
-  img.width = (isMobile()) ? img.naturalWidth * 0.25 : img.naturalWidth * 0.5;
-  img.height = (isMobile()) ? img.naturalHeight * 0.25 : img.naturalHeight * 0.5;;
-  const imgX = centerW - (img.width / 2);
-  const imgY = (isMobile()) ? centerH - (img.height) : centerH - (img.height / 2);
-  ctx.drawImage(img, imgX, imgY, img.width, img.height );
+
+
+let particles = [];
+const num_particles = 15000;
+
+function setup() {
+    let cnv = createCanvas(window.innerWidth, window.innerHeight);
+    cnv.parent('#container');
+    for (let i = 0; i < num_particles; i++) {
+        particles.push(new Particle());
+    }
 }
 
-img.addEventListener('load', () => {
-  drawScaledImage();
-  const init = () => {
-    for (let y = 0; y < numParticles; y++) {
-      particleArray.push(new Particle);
+function draw() {
+    fill(1, 21, 46, 25);  // Semi-transparent rectangle for echo effect
+    rect(0, 0, width, height);
+    for (let particle of particles) {
+        particle.update();
+        particle.show();
     }
-  }
-  init();
-  const animate = () => {
-  };
-
-
-});
-
-const grayScaleImage = (ctx) => {
-  const scannedImage = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-  const scannedData = scannedImage.data;
-  
-  for (let i = 0; i < scannedData.length; i+=4) {
-    const total = scannedData[i] + scannedData[i + 1] + scannedData[i + 2];
-    const averageColorValue = total/3;
-    scannedData[i] = averageColorValue;
-    scannedData[i + 1] = averageColorValue;
-    scannedData[i + 2] = averageColorValue;
-  }
-  scannedImage.data = scannedData;
-  ctx.putImageData(scannedImage, canvas.width / 3, canvas.height / 4, remToPixels(40), remToPixels(30));
 }
 
 class Particle {
-  constructor() {
-    this.x = Math.random() * canvas.Width;
-    this.y = 0;
-    this.speed = 0;
-    this.velocity = Math.random() * 0.5;
-    this.size = Math.random() * 1.5 + 1;
-  }
-  
-  update() {
-    this.y+= this.velocity;
-    if (this.y > canvas.height) {
-      this.y = 0;
-      this.x = Math.random() * canvas.width;
+    constructor() {
+        this.pos = createVector(random(width), random(height));
+        this.vel = createVector(0, 0);
+        this.acc = createVector(0, 0);
+        this.maxSpeed = 2;
     }
-  }
 
-  draw() {
-    ctx.beginPath();
-    ctx.fillStyle = 'white';
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
+    attract(target) {
+        let force = p5.Vector.sub(target, this.pos);
+        force.setMag(0.8);  // Adjust this value to change the strength of attraction
+        this.acc.add(force);
+    }
+
+    update() {
+        this.attract(createVector(mouseX, mouseY));
+
+        let angle = noise(this.pos.x * 0.01, this.pos.y * 0.01) * TWO_PI * 4;
+        this.acc.add(p5.Vector.fromAngle(angle));
+        this.pos.add(this.vel);
+        this.vel.add(this.acc);
+        this.vel.limit(this.maxSpeed);
+        this.acc.mult(0);
+        
+        if (this.pos.x > width) this.pos.x = 0;
+        if (this.pos.x < 0) this.pos.x = width;
+        if (this.pos.y > height) this.pos.y = 0;
+        if (this.pos.y < 0) this.pos.y = height;
+    }
+
+    show() {
+      stroke(255, 255, 255, 10);
+      strokeWeight(3);
+      point(this.pos.x, this.pos.y);
+    }
 }
-
-
-const onResizeCanvas = () => {
-  ctx.save();
-  ctx.canvas.height = window.innerHeight;
-  ctx.canvas.width = window.innerWidth;
-  ctx.restore();
-  centerH = Math.floor(ctx.canvas.height / 2);
-  centerW = Math.floor(ctx.canvas.width / 2);
-  drawScaledImage();
-}
-window.addEventListener("resize", () => {
-  onResizeCanvas();
-});
-
-window.addEventListener("load", () => {
-  onResizeCanvas();
-});

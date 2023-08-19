@@ -5,6 +5,14 @@ html, body {
   height: 100vh;
   width: 100vw;
 }
+.links {
+  margin-right: 1vw;
+  text-decoration: none;
+  color: rgba(245, 245, 245, 0.913);
+}
+.links:hover {
+  color: rgba(181, 181, 181, 0.833);
+}
 
 #canvas2 {
   /* background: #0a0044; */
@@ -39,6 +47,15 @@ html, body {
   background: #000000;
   box-shadow:1px 1px 10px 0.5px rgba(255, 255, 255, 0.096);
   transform: translateY(2px);
+}
+
+
+#latest {
+  z-index: 999;
+  position: absolute;
+  bottom: 1vh;
+  left: 1vw;
+  display: none;
 }
 
 #play-pause {
