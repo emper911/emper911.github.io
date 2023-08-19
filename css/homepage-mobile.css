@@ -35,7 +35,8 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-areas: 
     "social"
     "discography";
-  grid-template-rows: 50%  50%; /* Social media links will take the space they need, rest will be for discography */
+  /* grid-template-rows: 50%  50%; */
+  grid-template-rows: auto 1fr; /* Changed from 50% 50% */
   justify-items: center;
 }
 
@@ -43,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 .title {
   color: white;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1vh;
 }
 
 /* Discography */
@@ -60,8 +61,8 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   transition: all 1.5s ease; /* smooth transition for hover effects */
 }
 
@@ -71,7 +72,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #discography a:last-child {
-  margin-bottom: 12vh;
+  margin-bottom: 10vh;
 }
 
 #discography img {
@@ -85,7 +86,8 @@ h1, h2, h3, h4, h5, h6 {
   display: grid;
   grid-template-rows: repeat(auto-fill, minmax(40px, 1fr)); /* Adaptable rows based on content */
   justify-items: center;
-  gap: 1.5vh;
+  gap: 1vh;
+  color: white;
 }
 
 .social-header {
@@ -93,16 +95,13 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.2rem;  /* Increased font size from 1.2rem to 1.5rem */
 }
 
-#socialmedia {
-  color: white;
-}
-
 #socialmedia a {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5vw 6vh; /* Adding some padding */
+  /* padding: 0.5vw 6vh; */
+  padding: 0.5vh 3vh; /* Adjusted from 0.5vw 6vh */
   border: 1px solid rgba(253, 251, 251, 0.667); /* Soft border */
   border-radius: 15px; /* Rounded corners */
   background-color: rgba(255, 255, 255, 0.214);
