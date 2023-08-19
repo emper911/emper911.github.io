@@ -10,6 +10,11 @@ html, body {
   overflow: hidden;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
 /* Canvas */
 .canvas {
   position: absolute;
@@ -32,8 +37,6 @@ html, body {
     "discography";
   grid-template-rows: 50%  50%; /* Social media links will take the space they need, rest will be for discography */
   justify-items: center;
-  /* align-content: center; */
-  /* overflow: scroll; */
 }
 
 /* Title */
@@ -47,8 +50,9 @@ html, body {
 #discography {
   grid-area: discography;
   width: 75vw;
-  overflow: scroll;
-  margin-top: 4vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 2vh;
 }
 
 #discography a {
@@ -56,6 +60,8 @@ html, body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
   transition: all 1.5s ease; /* smooth transition for hover effects */
 }
 
@@ -64,22 +70,26 @@ html, body {
   filter: brightness(0.9); /* increase brightness */
 }
 
+#discography a:last-child {
+  margin-bottom: 12vh;
+}
+
 #discography img {
-  width: 100%;
+  width: 75%;
   height: auto;
 }
 
 /* Social Media Links */
 #socialmedia {
   grid-area: social;
-  margin-top: 2vh;
   display: grid;
   grid-template-rows: repeat(auto-fill, minmax(40px, 1fr)); /* Adaptable rows based on content */
   justify-items: center;
-  gap: 1rem;
+  gap: 1.5vh;
 }
 
 .social-header {
+  margin-top: 1vh;
   font-size: 1.2rem;  /* Increased font size from 1.2rem to 1.5rem */
 }
 
@@ -95,6 +105,8 @@ html, body {
   padding: 0.5vw 6vh; /* Adding some padding */
   border: 1px solid rgba(253, 251, 251, 0.667); /* Soft border */
   border-radius: 15px; /* Rounded corners */
+  background-color: rgba(255, 255, 255, 0.214);
+  transition: background-color 0.3s ease; 
 }
 
 #socialmedia i {
@@ -103,7 +115,7 @@ html, body {
 
 .links {
   text-decoration: none;
-  color: rgba(245, 245, 245, 0.913);
+  color: white;
   font-size: 1.2rem; 
 }
 
