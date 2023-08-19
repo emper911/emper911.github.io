@@ -32,9 +32,7 @@ h1, h2, h3, h4, h5, h6, .title, .social-header {
 }
 
 .title {
-    /* grid-area: header; */
     justify-self: center;
-    /* align-self: end; */
     z-index: 999;
     color: white;
 }
@@ -48,7 +46,6 @@ h1, h2, h3, h4, h5, h6, .title, .social-header {
     align-items: center;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-    
     grid-area: main;
     display: grid;
     grid-template-columns: 1fr;
@@ -127,11 +124,6 @@ h1, h2, h3, h4, h5, h6, .title, .social-header {
     text-decoration: none;
     color: rgb(255, 255, 255);
 }
-
-/* #socialmedia, .social-header {
-    position: fixed;
-    z-index: 1000; 
-} */
 
 .links {
     text-decoration: none;
