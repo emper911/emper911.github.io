@@ -101,9 +101,10 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 0.5rem;
   /* padding: 0.5vw 6vh; */
-  padding: 0.5vh 3vh; /* Adjusted from 0.5vw 6vh */
-  border: 1px solid rgba(253, 251, 251, 0.667); /* Soft border */
-  border-radius: 15px; /* Rounded corners */
+  padding: 0.5vh 2vh; /* Adjusted from 0.5vw 6vh */
+  margin: 0.5vh;
+  /* border: 1px solid rgba(255, 255, 255, 0.667); Soft border */
+  border-radius: 12px; /* Rounded corners */
   background-color: rgba(255, 255, 255, 0.214);
   transition: background-color 0.3s ease; 
 }

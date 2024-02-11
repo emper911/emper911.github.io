@@ -4,7 +4,7 @@ window.addEventListener('load', ()=> {
   // Select all the social media links
   const socialLinks = document.querySelectorAll("#socialmedia a");
   // Define a base offset (can adjust as needed)
-  const baseOffset = 2;
+  const baseOffset = 0;
   
   // Iterate over each link and adjust its left style based on its index
   if (isMobile()) {
