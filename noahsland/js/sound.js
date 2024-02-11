@@ -1,5 +1,5 @@
 const setupSong = () => {
-  player = new Tone.Player("../../files/1_Noah'sLand_Master.mp3");
+  player = new Tone.Player("../common/files/1_Noah'sLand_Master.mp3");
   player.autostart = true;
   player.sync();
   // audio analysis
