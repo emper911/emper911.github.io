@@ -6,33 +6,29 @@
     <script src="js/audio-react.js"></script>
   </head>
   <body>
-    <a-scene environment="preset: threetowers;">
+    <a-scene environment="preset: poison;">
       <a-assets>
         <audio id="signal_loss_audio" src="../common/files/9. Signal Loss (Feat. Nakama).wav" autoplay loop></audio>
         <a-asset-item id="mushroom" src="assets/mushroom1.glb"></a-asset-item>
       </a-assets>
+      <a-entity id="sun" light="type: directional; color: #FFA500; intensity: 0.1" position="0 1 -1" sun-cycle></a-entity>
       <!-- MUSHROOMS -->
-      <a-entity id="" gltf-model="#mushroom" position="15 0.5 -3" audio-reactive data-bin="0"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="12 0.5 -6" audio-reactive data-bin="7"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="15 0.5 3" audio-reactive data-bin="1"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="12 0.5 6" audio-reactive data-bin="6"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="3 0.5 15" audio-reactive data-bin="2"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="6 0.5 12" audio-reactive data-bin="5"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="-3 0.5 15" audio-reactive data-bin="3"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="-6 0.5 12" audio-reactive data-bin="4"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="3 0.5 -15" audio-reactive data-bin="4"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="6 0.5 -12" audio-reactive data-bin="3"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="-3 0.5 -15" audio-reactive data-bin="5"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="-6 0.5 -12" audio-reactive data-bin="2"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="-15 0.5 3" audio-reactive data-bin="6"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="-12 0.5 6" audio-reactive data-bin="1"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="-15 0.5 -3" audio-reactive data-bin="7"></a-entity>
-      <a-entity id="" gltf-model="#mushroom" position="-12 0.5 -6" audio-reactive data-bin="0"></a-entity>
-
-      <!-- <a-entity gltf-model="#mushroom" position="15 0.5 0" audio-reactive="audioSrc: #signal_loss_audio" data-bin="0"></a-entity>
-      <a-entity gltf-model="#mushroom" position="0 0.5 15" audio-reactive="audioSrc: #signal_loss_audio" data-bin="1"></a-entity>
-      <a-entity gltf-model="#mushroom" position="0 0.5 -15" audio-reactive="audioSrc: #signal_loss_audio" data-bin="2"></a-entity>
-      <a-entity gltf-model="#mushroom" position="-15 0.5 0" audio-reactive="audioSrc: #signal_loss_audio" data-bin="3"></a-entity> -->
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="15 0.5 -3" audio-reactive data-bin="0"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="12 0.5 -6" audio-reactive data-bin="7"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="15 0.5 3" audio-reactive data-bin="1"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="12 0.5 6" audio-reactive data-bin="6"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="3 0.5 15" audio-reactive data-bin="2"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="6 0.5 12" audio-reactive data-bin="5"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="-3 0.5 15" audio-reactive data-bin="3"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="-6 0.5 12" audio-reactive data-bin="4"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="3 0.5 -15" audio-reactive data-bin="4"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="6 0.5 -12" audio-reactive data-bin="3"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="-3 0.5 -15" audio-reactive data-bin="5"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="-6 0.5 -12" audio-reactive data-bin="2"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="-15 0.5 3" audio-reactive data-bin="6"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="-12 0.5 6" audio-reactive data-bin="1"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="-15 0.5 -3" audio-reactive data-bin="7"></a-entity>
+      <a-entity id="" gltf-model="#mushroom" scale="2.5 2.5 2.5" position="-12 0.5 -6" audio-reactive data-bin="0"></a-entity>
       <!-- MENU CONTROLS -->
       <a-entity position="0 2 -3"> <!-- Adjust position to place in front of the camera -->
         <a-box id="playButton" position="-1.5 1 0" rotation="0 0 0" width="2" height="1" depth="0.001"
@@ -42,6 +38,7 @@
           text="align: center; color: black; value: Stop" class="clickable" stop-audio hover-color-change>
         </a-box>
       </a-entity>
+      <a-cylinder color="crimson" height="3" radius="1.5" position="0 0 0 "></a-cylinder>
       <!-- CAMERA -->
       <a-entity id="rig" position="0 5 0" rotation="0 0 0">
         <a-entity camera position="0 0 0" look-controls>

@@ -22,17 +22,6 @@ AFRAME.registerComponent('hover-color-change', {
   }
 });
 
-// AFRAME.registerComponent('play-audio', {
-//   init: function () {
-//     this.el.addEventListener('click', (e) => {
-//       const audioEl = document.querySelector('#signal_loss_audio');
-
-//       audioEl.play();
-//       console.log("Playing music");
-//     });
-//   },
-// });
-
 AFRAME.registerComponent('play-audio', {
   init: function() {
     this.setupAudioContext = this.setupAudioContext.bind(this);
@@ -60,7 +49,10 @@ AFRAME.registerComponent('play-audio', {
       this.analyser = this.setupAudioContext(audioEl);
       this.applyAudioReactiveBehavior(this.analyser);
     }
-    
+    var sunEl = document.querySelector('#sun');
+    if (sunEl) {
+      sunEl.components['sun-cycle'].startSunCycle(470000 * 1000); 
+    }
     // Play the audio
     audioEl.play();
   },
@@ -88,7 +80,7 @@ AFRAME.registerComponent('play-audio', {
         const avg = sum / binSize; // Average amplitude for the bin
 
         // Scale and color the mushroom based on the average amplitude
-        const scale = Math.max(avg / 128, 0.5); // Ensure minimum scale
+        const scale = Math.max(avg / 128, 0.5) + 2; // Ensure minimum scale
         mushroom.setAttribute('scale', `${scale} ${scale} ${scale}`);
         const hue = Math.floor((avg / 255) * 360);
         const color = `hsl(${hue}, 100%, 50%)`;
@@ -115,5 +107,29 @@ AFRAME.registerComponent('stop-audio', {
       audioEl.pause();
       console.log("Paused music");
     });
+  }
+});
+
+AFRAME.registerComponent('sun-cycle', {
+  schema: {
+    duration: {type: 'number', default: 470000} // default 10 seconds, adjust based on your song's length
+  },
+  init: function() {
+    var el = this.el;
+    var data = this.data;
+
+    // Assuming the audio element is ready and its duration is known:
+    // Note: Make sure the audio is loaded to get its duration. This might need adjustment.
+    var audioEl = document.querySelector('#signal_loss_audio');
+    audioEl.addEventListener('playing', () => {
+      let duration = 470000 * 1000; // Convert to milliseconds
+      this.startSunCycle(duration);
+    });
+  },
+  startSunCycle: function(duration) {
+    // Sunrise to noon
+    this.el.setAttribute('animation', `property: light.intensity; to: 1; dur: ${duration / 2}; easing: easeInOutQuad`);
+    // Sunset
+    this.el.setAttribute('animation__2', `property: light.intensity; to: 0.1; dur: ${duration / 2}; delay: ${duration / 2}; easing: easeInOutQuad`);
   }
 });
