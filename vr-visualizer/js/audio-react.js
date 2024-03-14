@@ -27,6 +27,11 @@ AFRAME.registerComponent('play-audio', {
     this.setupAudioContext = this.setupAudioContext.bind(this);
     this.playAudio = this.playAudio.bind(this);
     this.el.addEventListener('click', this.playAudio);
+    this.el.addEventListener('keyup', event => {
+      if (event.code === 'Space') {
+        this.playAudio()
+      }
+    })
   },
   setupAudioContext: function(audioEl) {
     // Create AudioContext and AnalyserNode
