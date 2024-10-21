@@ -1,0 +1,29 @@
+<!-- src/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Audio Reactive Visualization</title>
+    <link rel="stylesheet" href="/styles.css">
+  <script type="module" crossorigin src="/assets/main-DeUe-fts.js"></script>
+</head>
+<body>
+    <!-- Start Screen -->
+    <div id="start-screen" class="overlay">
+        <button id="startButton" class="btn">Start</button>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app" style="display: none;">
+        <!-- Header with Settings and Scene Switcher -->
+        <header>
+            <button id="settingsButton" class="btn">Settings</button>
+            <div id="sceneSwitcher"></div>
+        </header>
+
+        <!-- Three.js Canvas -->
+        <canvas id="threeCanvas"></canvas>
+    </div>
+
+</body>
+</html>
