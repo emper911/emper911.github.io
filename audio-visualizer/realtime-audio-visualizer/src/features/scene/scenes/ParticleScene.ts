@@ -1,6 +1,6 @@
 // src/scenes/ParticleScene.ts
 import * as THREE from 'three';
-import { SceneBase } from './SceneBase';
+import { SceneBase } from '../SceneBase';
 import { AnalyzedDataType } from '../types/audio';
 import { MidiNoteOnType, MidiNoteOffType } from '../types/midi';
 
