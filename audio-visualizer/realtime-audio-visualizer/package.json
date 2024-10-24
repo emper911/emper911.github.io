@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "@midival/core": "^0.1.7",
+    "dexie": "^4.0.9",
+    "mitt": "^3.0.1",
     "three": "^0.169.0",
     "tone": "^15.0.4"
   }

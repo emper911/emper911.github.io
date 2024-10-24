@@ -31,7 +31,7 @@ class AudioManager {
 
     reset(): void {
         this.stop();
-        this.init();
+        this.setup();
     }
 
     getAudioData(): Float32Array[] {

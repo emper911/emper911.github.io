@@ -1,72 +1,112 @@
 // src/App.ts
 import AudioManager from './features/audio/AudioManager';
-import SceneManager from './features/scenes/SceneManager';
 import MidiManager from './features/midi/MidiManager';
+import SceneManager from './features/scene/SceneManager';
+import SettingsManager from './features/settings/SettingsManager';
 
 export class App {
   private audioManager: AudioManager;
-  private sceneManager: SceneManager;
   private midiManager: MidiManager;
-  private isPlaying: boolean;
+  private settingsManager: SettingsManager;
+  private sceneManager: SceneManager;
 
   constructor() {
-    this.audioManager = new AudioManager();
-    this.sceneManager = new SceneManager();
-    this.midiManager = new MidiManager();
-    this.isPlaying = false;
-
-    // Bind event listeners
-    this.bindUIActions();
+    this.settingsManager = SettingsManager.getInstance();
+    this.audioManager = new AudioManager(this.settingsManager);
+    this.midiManager = new MidiManager(this.settingsManager);
+    this.sceneManager = new SceneManager(this.audioManager, this.midiManager);
   }
 
-  async setup(): Promise<void> {
-    await this.audioManager.setup();
-    await this.midiManager.setup();
-    await this.sceneManager.setup();
+  public init() {
+    // Handle Start button click
+    const startButton = document.getElementById('startButton');
+    const configModal = document.getElementById('configModal')!;
+    const settingsForm = document.getElementById('settingsForm') as HTMLFormElement;
 
-    // Populate settings modal with available inputs
+    if (startButton) {
+      startButton.addEventListener('click', async () => {
+        startButton.style.display = 'none';
+        await this.startApplication();
+      });
+    }
 
-    // Listen for settings updates
-    window.addEventListener('settingsUpdated', (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      this.audioManager.setInputSource(detail.audioInput);
-      this.midiManager.setInputSource(detail.midiInput);
+    // Show configuration modal if needed
+    // For simplicity, always show the modal after clicking start
+    settingsForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await this.saveSettingsFromForm(settingsForm);
+      configModal.style.display = 'none';
+      await this.startApplication();
     });
 
-    this.animate();
+    // Populate audio and MIDI input options
+    this.populateAudioInputs();
+    this.populateMidiInputs();
   }
 
-  private bindUIActions(): void {
-    const startButton = document.getElementById('startButton') as HTMLButtonElement;
-    const settingsButton = document.getElementById('settingsButton') as HTMLButtonElement;
-
-    startButton.addEventListener('click', () => this.playPause());
-    settingsButton.addEventListener('click', () => this.settingsModal.open());
-  }
-
-  private async playPause(): Promise<void> {
-    if (this.isPlaying) {
-      this.audioManager.stop();
-      this.isPlaying = false;
-      (document.getElementById('startButton') as HTMLButtonElement).innerText = 'Start';
-    } else {
-      await Tone.start(); // Necessary for some browsers to start audio
-      this.audioManager.start();
-      this.isPlaying = true;
-      (document.getElementById('startButton') as HTMLButtonElement).innerText = 'Pause';
+  private async startApplication() {
+    try {
+      await this.settingsManager.loadSettings();
+      await this.audioManager.setup();
+      await this.midiManager.setup();
+      this.sceneManager.setup();
+      // Additional initialization as needed
+    } catch (error) {
+      console.error('Error initializing application:', error);
+      // Handle errors and possibly show user notifications
     }
   }
 
-  private switchScene(sceneName: string): void {
-    this.sceneManager.switchScene(sceneName);
+  private async saveSettingsFromForm(form: HTMLFormElement) {
+    const midiEnabled = (form.querySelector('#midiEnabled') as HTMLInputElement).checked;
+    const audioInput = (form.querySelector('#audioInput') as HTMLSelectElement).value;
+    const midiInput = (form.querySelector('#midiInput') as HTMLSelectElement).value;
+    const midiChannelsElements = form.querySelectorAll('#midiChannels input[type="checkbox"]');
+    const midiChannels: number[] = [];
+    midiChannelsElements.forEach((checkbox) => {
+      if ((checkbox as HTMLInputElement).checked) {
+        midiChannels.push(parseInt((checkbox as HTMLInputElement).value));
+      }
+    });
+
+    const newSettings = {
+      midiEnabled,
+      audioInput,
+      midiInput,
+      midiChannels
+    };
+
+    await this.settingsManager.saveSettings(newSettings);
   }
 
-  private animate = () => {
-    requestAnimationFrame(this.animate);
-    if (this.isPlaying) {
-      const audioData = this.audioManager.getAudioData();
-      const midiData = this.midiManager.getMidiData();
-      this.sceneManager.update(audioData, midiData, currentTime);
-    }
+  private populateAudioInputs() {
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      const audioSelect = document.getElementById('audioInput') as HTMLSelectElement;
+      devices.forEach((device) => {
+        if (device.kind === 'audioinput') {
+          const option = document.createElement('option');
+          option.value = device.deviceId;
+          option.text = device.label || `Microphone ${audioSelect.length + 1}`;
+          audioSelect.appendChild(option);
+        }
+      });
+    }).catch((error) => {
+      console.error('Error enumerating audio devices:', error);
+    });
+  }
+
+  private populateMidiInputs() {
+    // Assuming MidiVal can list available MIDI devices
+    // You may need to adjust based on midival's API
+    // For demonstration, we'll leave it static
+    const midiSelect = document.getElementById('midiInput') as HTMLSelectElement;
+    // Example static devices; replace with dynamic listing
+    const devices = ['Digitakt', 'Syntakt']; // Replace with dynamic detection
+    devices.forEach((device) => {
+      const option = document.createElement('option');
+      option.value = device;
+      option.text = device;
+      midiSelect.appendChild(option);
+    });
   }
 }
