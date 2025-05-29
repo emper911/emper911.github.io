@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "date": "2024-11-23",
+    "venue": "Main Drag",
+    "location": "New York, NY",
+    "description": "Seb and Chris Release show"
+  },
+  {
+    "id": 2,
+    "date": "2024-11-30",
+    "venue": "Museum B",
+    "location": "Copenhagen, DE",
+    "description": "Exhibition"
+  }
+]

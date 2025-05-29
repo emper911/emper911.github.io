@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "ikeru T-Shirt",
+    "price": "$25",
+    "image": "/assets/merch1.jpg",
+    "description": "100% cotton t-shirt with artist's logo."
+  },
+  {
+    "id": 2,
+    "name": "Mushroom Keychain",
+    "price": "$10",
+    "image": "/assets/merch2.jpg",
+    "description": "Signed limited edition art print."
+  }
+]

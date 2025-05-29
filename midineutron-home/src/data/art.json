@@ -1,0 +1,65 @@
+[
+  {
+    "id": 7,
+    "title": "Norms",
+    "mediaType": "video",
+    "mediaUrl": "https://www.youtube.com/embed/L3PdsMFmNlY",
+    "description": "",
+    "link": "https://eryngii.art/normsWS",
+    "linkTitle": "Listen to Norms"
+  },
+  {
+    "id": 6,
+    "title": "ikeru",
+    "mediaType": "image",
+    "mediaUrl": "assets/images/ikeru (3000x3000).jpg",
+    "description": "",
+    "link": "https://eryngii.art/ikeruWS",
+    "linkTitle": "Listen to ikeru"
+  },
+  {
+    "id": 5,
+    "title": "Shining Armor",
+    "mediaType": "image",
+    "mediaUrl": "assets/images/shining armor_3000x3000.JPG",
+    "description": "",
+    "link": "https://eryngii.art/shinigarmorWS",
+    "linkTitle": "Listen to Shining Armor"
+  },
+  {
+    "id": 4,
+    "title": "Diminishing Returns",
+    "mediaType": "video",
+    "mediaUrl": "https://www.youtube.com/embed/WYg_1ya-Cfo",
+    "description": "",
+    "link": "https://eryngii.art/diminishing-returnsWS",
+    "linkTitle": "Listen to Diminishing Returns"
+  },
+  {
+    "id": 3,
+    "title": "Rewinds",
+    "mediaType": "image",
+    "mediaUrl": "assets/images/Rewinds_Final_Artwork_3000x3000.JPEG",
+    "description": "",
+    "link": "https://eryngii.art/RewindsWS",
+    "linkTitle": "Listen to Rewinds"
+  },
+  {
+    "id": 2,
+    "title": "Shuffle Till I'm There",
+    "mediaType": "image",
+    "mediaUrl": "assets/images/Shuffle Till I'm There Art small.png",
+    "description": "",
+    "link": "https://midineutron.bandcamp.com/track/shuffle-till-im-there",
+    "linkTitle": "Listen to Shuffle Till I'm There"
+  },
+  {
+    "id": 1,
+    "title": "Noah's Land",
+    "mediaType": "image",
+    "mediaUrl": "assets/images/Noah's Land_Album_Art small.png",
+    "description": "",
+    "link": "https://midineutron.com/noahsland/noahsland.html",
+    "linkTitle": "Watch Noah's Land Visualizer"
+  }
+]
