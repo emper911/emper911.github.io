@@ -1,4 +1,5 @@
 import { spacing } from "../tokens";
+import { SocialIcon } from "./SocialIcon";
 
 /**
  * Artist identity header.
@@ -49,30 +50,17 @@ export function IdentityBlock({ siteConfig }) {
 
       {/* Social links */}
       {socialLinks && Object.keys(socialLinks).length > 0 && (
-        <nav
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 10,
-            color: "var(--dim)",
-            marginTop: 6,
-            display: "flex",
-            gap: 12,
-          }}
-        >
+        <nav style={{ marginTop: 10, display: "flex", gap: 14 }}>
           {Object.entries(socialLinks).map(([platform, url]) => (
             <a
               key={platform}
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: "inherit",
-                textDecoration: "none",
-                borderBottom: "1px dotted var(--dim)",
-                paddingBottom: 1,
-              }}
+              title={platform}
+              style={{ color: "var(--dim)", display: "flex", alignItems: "center" }}
             >
-              {platform}
+              <SocialIcon platform={platform} size={16} />
             </a>
           ))}
         </nav>
