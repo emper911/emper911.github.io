@@ -67,8 +67,10 @@ export function ctaLabelForShowType(itemType) {
       return "Listen →";
     case "livestream":
       return "Watch →";
-    default:
+    case "ticket":
       return "Tickets →";
+    default:
+      return "Link →";
   }
 }
 
