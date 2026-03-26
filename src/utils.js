@@ -58,6 +58,21 @@ export function timeAgo(dateStr) {
 }
 
 /**
+ * Determine CTA label from show itemType.
+ */
+export function ctaLabelForShowType(itemType) {
+  switch (itemType) {
+    case "stream":
+    case "radio":
+      return "Listen →";
+    case "livestream":
+      return "Watch →";
+    default:
+      return "Tickets →";
+  }
+}
+
+/**
  * Determine CTA label from media itemType.
  */
 export function ctaLabelForMediaType(itemType) {

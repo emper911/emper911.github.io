@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { spacing } from "../tokens";
 import { DateBlock, HeroCTAButton } from "./primitives";
-import { parseLocalDate } from "../utils";
+import { parseLocalDate, ctaLabelForShowType } from "../utils";
 
 /**
  * HeroCard — dispatches to the correct hero template variant.
@@ -91,7 +91,7 @@ function HeroEvent({ item }) {
           </div>
           {item.url && (
             <div style={{ marginTop: 12 }}>
-              <HeroCTAButton label="Tickets →" href={item.url} />
+              <HeroCTAButton label={ctaLabelForShowType(item.itemType)} href={item.url} />
             </div>
           )}
         </div>
