@@ -35,7 +35,7 @@ export function ProductCard({ item }) {
           {item.itemType}
           {item.status === "available" &&
             item.price != null &&
-            ` · $${item.price} · ${item.stock} left`}
+            ` · $${item.price}${item.stock != null && item.stock !== -1 ? ` · ${item.stock} left` : ""}`}
           {item.status === "sold_out" &&
             item.price != null &&
             ` · $${item.price}`}

@@ -52,7 +52,7 @@ export function FeedCard({ item, template, typeLabel }) {
               color: "var(--dim)",
             }}
           >
-            {isFuture ? formatDate(item.date) : timeAgo(item.date)}
+            {formatDate(item.date)}
           </span>
         )}
       </div>
