@@ -47,9 +47,18 @@ async function writeToFirestore(doc) {
 export const notionSync = onRequest(
   { region: "us-east1", secrets: ["NOTION_API_TOKEN", "NOTION_WEBHOOK_SECRET"] },
   async (req, res) => {
+    // Handle Notion webhook verification before signature check
+    if (req.body?.type === "url_verification") {
+      return res.status(200).json({ challenge: req.body.challenge });
+    }
+    if (req.body?.verification_token) {
+      console.log("VERIFICATION TOKEN:", req.body.verification_token);
+      return res.status(200).send("OK");
+    }
+
     // Signature verification (skip if secret not yet configured)
     const webhookSecret = process.env.NOTION_WEBHOOK_SECRET;
-    if (webhookSecret) {
+    if (webhookSecret && webhookSecret !== "placeholder") {
       const sig = req.headers["x-notion-signature"];
       if (!sig) return res.status(401).send("Missing signature");
       const expected = createHmac("sha256", webhookSecret)
@@ -57,7 +66,7 @@ export const notionSync = onRequest(
         .digest("hex");
       if (sig !== `sha256=${expected}`) return res.status(401).send("Invalid signature");
     } else {
-      console.warn("NOTION_WEBHOOK_SECRET not set — skipping signature verification");
+      console.warn("NOTION_WEBHOOK_SECRET not configured — skipping signature verification");
     }
 
     // Extract page ID (handle both Notion webhook payload formats)
