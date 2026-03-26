@@ -24,7 +24,9 @@ async function fetchAllContent(schema) {
   await Promise.all(
     [...collections].map(async (collName) => {
       const snap = await getDocs(collection(db, collName));
-      result[collName] = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      result[collName] = snap.docs
+        .map((d) => ({ id: d.id, ...d.data() }))
+        .filter((d) => d.status !== "draft");
     })
   );
   return result;
