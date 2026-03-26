@@ -1,6 +1,6 @@
+import { useMemo } from "react";
 import { spacing } from "../tokens";
 import { DateBlock, HeroCTAButton } from "./primitives";
-import { formatMonth, formatDayNum, formatWeekday } from "../utils";
 
 /**
  * HeroCard — dispatches to the correct hero template variant.
@@ -165,7 +165,7 @@ function HeroRelease({ item }) {
             {item.price != null && ` · $${item.price}`}
           </div>
         </div>
-        <HeroCTAButton label="Listen →" href={item.url} />
+        {item.url && <HeroCTAButton label="Listen →" href={item.url} />}
       </div>
     </HeroWrapper>
   );
@@ -266,12 +266,17 @@ function HeroProduct({ item }) {
                   {item.stock} left
                 </span>
               )}
-              {item.status === "available" ? (
+              {item.status === "available" && item.stripePriceId && item.stock > 0 && (
                 <HeroCTAButton label="Buy" variant="filled" />
-              ) : (
-                <HeroCTAButton
-                  label={item.status === "coming_soon" ? "Soon" : "Sold out"}
-                />
+              )}
+              {item.status === "available" && !item.stripePriceId && item.url && (
+                <HeroCTAButton label="View →" href={item.url} />
+              )}
+              {item.status === "sold_out" && (
+                <HeroCTAButton label="Sold out" />
+              )}
+              {item.status === "coming_soon" && (
+                <HeroCTAButton label="Soon" />
               )}
             </div>
           </div>
@@ -336,25 +341,27 @@ function HeroVideo({ item }) {
 function HeroProject({ item }) {
   return (
     <HeroWrapper sectionLabel="Featured project">
-      <div
-        style={{
-          border: "1px solid var(--hero-border)",
-          padding: 14,
-          marginBottom: 16,
-        }}
-      >
+      {item.note && (
         <div
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 10,
-            color: "var(--hero-dim)",
-            lineHeight: 1.6,
+            border: "1px solid var(--hero-border)",
+            padding: 14,
+            marginBottom: 16,
           }}
         >
-          <span style={{ color: "var(--hero-fg)", opacity: 0.4 }}>{">"}</span>{" "}
-          {item.note}
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 10,
+              color: "var(--hero-dim)",
+              lineHeight: 1.6,
+            }}
+          >
+            <span style={{ color: "var(--hero-fg)", opacity: 0.4 }}>{">"}</span>{" "}
+            {item.note}
+          </div>
         </div>
-      </div>
+      )}
       <div
         style={{
           fontFamily: "var(--font-display)",
@@ -377,14 +384,11 @@ function HeroProject({ item }) {
         {item.itemType}
         {item.date && ` · ${new Date(item.date).getFullYear()}`}
       </div>
-      <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-        <HeroCTAButton label="Demo →" href={item.url} />
-        <HeroCTAButton
-          label="Source"
-          href={item.sourceUrl || null}
-          variant="outlined"
-        />
-      </div>
+      {item.url && (
+        <div style={{ marginTop: 12 }}>
+          <HeroCTAButton label="Demo →" href={item.url} />
+        </div>
+      )}
     </HeroWrapper>
   );
 }
@@ -392,6 +396,11 @@ function HeroProject({ item }) {
 // ─── Hero: Mix ───
 
 function HeroMix({ item }) {
+  const barHeights = useMemo(
+    () => Array.from({ length: 40 }, (_, i) => 20 + Math.sin(i * 0.5) * 30 + ((i * 7919) % 40)),
+    []
+  );
+
   return (
     <HeroWrapper sectionLabel="Featured mix">
       {/* Waveform placeholder — replace with real audio visualization */}
@@ -417,14 +426,14 @@ function HeroMix({ item }) {
             padding: "8px 12px",
           }}
         >
-          {Array.from({ length: 40 }, (_, i) => (
+          {barHeights.map((h, i) => (
             <div
               key={i}
               style={{
                 width: 3,
                 background: "var(--hero-fg)",
                 opacity: 0.15,
-                height: `${20 + Math.sin(i * 0.5) * 30 + Math.random() * 40}%`,
+                height: `${h}%`,
                 borderRadius: 1,
               }}
             />
@@ -454,9 +463,11 @@ function HeroMix({ item }) {
           {item.note}
         </div>
       )}
-      <div style={{ marginTop: 12 }}>
-        <HeroCTAButton label="Listen →" href={item.url} />
-      </div>
+      {item.url && (
+        <div style={{ marginTop: 12 }}>
+          <HeroCTAButton label="Listen →" href={item.url} />
+        </div>
+      )}
     </HeroWrapper>
   );
 }

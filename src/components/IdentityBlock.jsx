@@ -68,7 +68,7 @@ export function IdentityBlock({ siteConfig }) {
               style={{
                 color: "inherit",
                 textDecoration: "none",
-                borderBottom: "1px solid var(--border)",
+                borderBottom: "1px dotted var(--dim)",
                 paddingBottom: 1,
               }}
             >
