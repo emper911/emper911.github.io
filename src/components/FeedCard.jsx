@@ -1,6 +1,6 @@
 import { spacing } from "../tokens";
 import { TypeBadge } from "./primitives";
-import { formatDate, timeAgo } from "../utils";
+import { formatDate, timeAgo, parseLocalDate } from "../utils";
 import { EventCard } from "./cards/EventCard";
 import { ReleaseCard } from "./cards/ReleaseCard";
 import { ProductCard } from "./cards/ProductCard";
@@ -23,7 +23,7 @@ export function FeedCard({ item, template, typeLabel }) {
   };
 
   const Template = templates[template] || templates.media;
-  const isFuture = item.date && new Date(item.date) > new Date();
+  const isFuture = item.date && parseLocalDate(item.date) > new Date();
   const isPostponed = item.status === "postponed";
 
   return (

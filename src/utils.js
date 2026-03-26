@@ -1,9 +1,14 @@
+// Parse a YYYY-MM-DD date string without timezone conversion.
+export function parseLocalDate(dateStr) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
 /**
  * Format a date as "Jun 8, 2026"
  */
 export function formatDate(dateStr) {
-  const dt = new Date(dateStr);
-  return dt.toLocaleDateString("en-US", {
+  return parseLocalDate(dateStr).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -14,8 +19,7 @@ export function formatDate(dateStr) {
  * Format a date as month abbreviation, uppercase: "JUN"
  */
 export function formatMonth(dateStr) {
-  const dt = new Date(dateStr);
-  return dt
+  return parseLocalDate(dateStr)
     .toLocaleDateString("en-US", { month: "short" })
     .toUpperCase();
 }
@@ -24,15 +28,14 @@ export function formatMonth(dateStr) {
  * Extract day number from date: 8
  */
 export function formatDayNum(dateStr) {
-  return new Date(dateStr).getDate();
+  return parseLocalDate(dateStr).getDate();
 }
 
 /**
  * Format weekday abbreviated, uppercase: "MON"
  */
 export function formatWeekday(dateStr) {
-  const dt = new Date(dateStr);
-  return dt
+  return parseLocalDate(dateStr)
     .toLocaleDateString("en-US", { weekday: "short" })
     .toUpperCase();
 }
@@ -43,7 +46,7 @@ export function formatWeekday(dateStr) {
  */
 export function timeAgo(dateStr) {
   const now = new Date();
-  const then = new Date(dateStr);
+  const then = parseLocalDate(dateStr);
   const days = Math.floor((now - then) / 86400000);
 
   if (days < 0) return formatDate(dateStr);
@@ -121,7 +124,7 @@ export function applyVisibilityRules(items, rules) {
     today.setHours(0, 0, 0, 0);
     filtered = filtered.filter((item) => {
       if (!item.date) return true;
-      return new Date(item.date) >= today;
+      return parseLocalDate(item.date) >= today;
     });
   }
 

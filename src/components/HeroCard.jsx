@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { spacing } from "../tokens";
 import { DateBlock, HeroCTAButton } from "./primitives";
+import { parseLocalDate } from "../utils";
 
 /**
  * HeroCard — dispatches to the correct hero template variant.
@@ -161,7 +162,7 @@ function HeroRelease({ item }) {
             }}
           >
             {item.itemType}
-            {item.date && ` · ${new Date(item.date).getFullYear()}`}
+            {item.date && ` · ${parseLocalDate(item.date).getFullYear()}`}
             {item.price != null && ` · $${item.price}`}
           </div>
         </div>
@@ -382,7 +383,7 @@ function HeroProject({ item }) {
         }}
       >
         {item.itemType}
-        {item.date && ` · ${new Date(item.date).getFullYear()}`}
+        {item.date && ` · ${parseLocalDate(item.date).getFullYear()}`}
       </div>
       {item.url && (
         <div style={{ marginTop: 12 }}>
