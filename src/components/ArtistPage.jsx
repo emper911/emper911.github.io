@@ -17,34 +17,53 @@ export function ArtistPage({
   featuredItem,
 }) {
   const [activeFilter, setActiveFilter] = useState("shows");
+  const [activeSubFilter, setActiveSubFilter] = useState(null);
+
+  // Reset sub-filter when switching away from etc.
+  const handleFilterSelect = (key) => {
+    setActiveFilter(key);
+    if (key !== "etc") setActiveSubFilter(null);
+  };
+
+  // ─── Build full etc. pool (before sub-filter) ───
+  const etcPool = useMemo(() => {
+    if (activeFilter !== "etc") return [];
+    const allItems = [];
+    for (const [key, typeConfig] of Object.entries(schema.contentTypes)) {
+      if (PRIMARY_TAB_KEYS.has(key)) continue;
+      const items = contentByCollection[typeConfig.collection] || [];
+      const visible = applyVisibilityRules(items, typeConfig.visibilityRules);
+      for (const item of visible) {
+        allItems.push({
+          item,
+          template: typeConfig.cardTemplate,
+          typeLabel: typeConfig.label,
+          sortValue: item[typeConfig.feedSortField],
+        });
+      }
+    }
+    allItems.sort((a, b) => {
+      if (a.sortValue == null && b.sortValue == null) return 0;
+      if (a.sortValue == null) return 1;
+      if (b.sortValue == null) return -1;
+      return a.sortValue > b.sortValue ? -1 : a.sortValue < b.sortValue ? 1 : 0;
+    });
+    return allItems;
+  }, [schema, contentByCollection, activeFilter]);
+
+  // ─── Derive unique itemType values for etc. sub-tabs ───
+  const etcSubTypes = useMemo(() => {
+    const types = new Set(
+      etcPool.map(({ item }) => item.itemType).filter(Boolean)
+    );
+    return [...types].sort();
+  }, [etcPool]);
 
   // ─── Build the feed ───
   const feed = useMemo(() => {
-    const contentTypes = Object.entries(schema.contentTypes);
-
     if (activeFilter === "etc") {
-      // Etc: aggregate all content types not covered by primary tabs
-      const allItems = [];
-      for (const [key, typeConfig] of contentTypes) {
-        if (PRIMARY_TAB_KEYS.has(key)) continue;
-        const items = contentByCollection[typeConfig.collection] || [];
-        const visible = applyVisibilityRules(items, typeConfig.visibilityRules);
-        for (const item of visible) {
-          allItems.push({
-            item,
-            template: typeConfig.cardTemplate,
-            typeLabel: typeConfig.label,
-            sortValue: item[typeConfig.feedSortField],
-          });
-        }
-      }
-      allItems.sort((a, b) => {
-        if (a.sortValue == null && b.sortValue == null) return 0;
-        if (a.sortValue == null) return 1;
-        if (b.sortValue == null) return -1;
-        return a.sortValue > b.sortValue ? -1 : a.sortValue < b.sortValue ? 1 : 0;
-      });
-      return allItems;
+      if (!activeSubFilter) return etcPool;
+      return etcPool.filter(({ item }) => item.itemType === activeSubFilter);
     }
 
     // Primary tab: show only that content type
@@ -69,7 +88,7 @@ export function ArtistPage({
       template: typeConfig.cardTemplate,
       typeLabel: typeConfig.label,
     }));
-  }, [schema, contentByCollection, activeFilter]);
+  }, [schema, contentByCollection, activeFilter, activeSubFilter, etcPool]);
 
   // ─── Resolve hero template ───
   const heroTemplate = useMemo(() => {
@@ -102,7 +121,13 @@ export function ArtistPage({
         <HeroCard item={featuredItem} template={heroTemplate} />
       )}
 
-      <FilterTabs activeFilter={activeFilter} onSelect={setActiveFilter} />
+      <FilterTabs
+        activeFilter={activeFilter}
+        onSelect={handleFilterSelect}
+        etcSubTypes={etcSubTypes}
+        activeSubFilter={activeSubFilter}
+        onSubSelect={setActiveSubFilter}
+      />
 
       {/* Scrollable feed */}
       <div style={{ flex: 1, overflowY: "auto" }}>
