@@ -89,23 +89,23 @@ export function ArtistPage({
       style={{
         background: "var(--bg)",
         color: "var(--fg)",
-        minHeight: "100vh",
+        height: "100vh",
         display: "flex",
         flexDirection: "column",
+        overflow: "hidden",
       }}
     >
+      {/* Fixed top section — does not scroll */}
+      <IdentityBlock siteConfig={siteConfig} />
+
+      {featuredItem && heroTemplate && (
+        <HeroCard item={featuredItem} template={heroTemplate} />
+      )}
+
+      <FilterTabs activeFilter={activeFilter} onSelect={setActiveFilter} />
+
+      {/* Scrollable feed */}
       <div style={{ flex: 1, overflowY: "auto" }}>
-        <IdentityBlock siteConfig={siteConfig} />
-
-        {/* Hero card — always visible */}
-        {featuredItem && heroTemplate && (
-          <HeroCard item={featuredItem} template={heroTemplate} />
-        )}
-
-        {/* Filter tabs — sticky below hero */}
-        <FilterTabs activeFilter={activeFilter} onSelect={setActiveFilter} />
-
-        {/* Feed */}
         <div style={{ padding: `6px ${spacing.pagePad}px 24px` }}>
           {feed.map(({ item, template, typeLabel }, index) => (
             <FeedCard

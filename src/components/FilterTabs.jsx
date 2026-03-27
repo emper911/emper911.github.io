@@ -9,12 +9,10 @@ export function FilterTabs({ activeFilter, onSelect }) {
   return (
     <div
       style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 10,
         display: "flex",
         background: "var(--bg)",
         borderBottom: "1px solid var(--border)",
+        flexShrink: 0,
       }}
     >
       {TABS.map(({ key, label }) => (
