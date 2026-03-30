@@ -1,5 +1,5 @@
 import { DateBlock, CTAButton, StatusBadge } from "../primitives";
-import { ctaLabelForShowType, formatTimeRange } from "../../utils";
+import { ctaLabelForShowType, formatTimeRange, formatPrice } from "../../utils";
 
 export function EventCard({ item }) {
   return (
@@ -30,7 +30,7 @@ export function EventCard({ item }) {
               <span>{formatTimeRange(item.date, item.dateEnd)} · </span>
             )}
             @ {item.venue?.name || item.venue}
-            {item.price != null ? ` · $${item.price}` : " · free"}
+            {formatPrice(item.price) != null && ` · ${formatPrice(item.price)}`}
           </div>
           {item.status === "postponed" && (
             <div style={{ marginTop: 4 }}>

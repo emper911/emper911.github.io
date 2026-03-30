@@ -1,4 +1,5 @@
 import { CTAButton } from "../primitives";
+import { formatPrice } from "../../utils";
 
 export function ReleaseCard({ item }) {
   return (
@@ -38,7 +39,7 @@ export function ReleaseCard({ item }) {
             }}
           >
             {item.itemType}
-            {item.price != null && ` · $${item.price}`}
+            {formatPrice(item.price) != null && ` · ${formatPrice(item.price)}`}
           </div>
         </div>
       </div>

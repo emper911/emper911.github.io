@@ -1,4 +1,5 @@
 import { CTAButton, StatusBadge } from "../primitives";
+import { formatPrice } from "../../utils";
 
 export function ProductCard({ item }) {
   const showBuy =
@@ -33,12 +34,10 @@ export function ProductCard({ item }) {
           }}
         >
           {item.itemType}
-          {item.status === "available" &&
-            item.price != null &&
-            ` · $${item.price}${item.stock != null && item.stock !== -1 ? ` · ${item.stock} left` : ""}`}
-          {item.status === "sold_out" &&
-            item.price != null &&
-            ` · $${item.price}`}
+          {item.status === "available" && formatPrice(item.price) != null &&
+            ` · ${formatPrice(item.price)}${item.stock != null && item.stock !== -1 ? ` · ${item.stock} left` : ""}`}
+          {item.status === "sold_out" && formatPrice(item.price) != null &&
+            ` · ${formatPrice(item.price)}`}
         </div>
       </div>
 

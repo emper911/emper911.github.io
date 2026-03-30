@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { spacing } from "../tokens";
 import { DateBlock, HeroCTAButton } from "./primitives";
-import { parseLocalDate, ctaLabelForShowType, formatTimeRange } from "../utils";
+import { parseLocalDate, ctaLabelForShowType, formatTimeRange, formatPrice } from "../utils";
 
 /**
  * HeroCard — dispatches to the correct hero template variant.
@@ -90,7 +90,7 @@ function HeroEvent({ item }) {
               <div>{formatTimeRange(item.date, item.dateEnd)}</div>
             )}
             <div>@ {item.venue?.name || item.venue}</div>
-            {item.price != null && <div>${item.price} admission</div>}
+            {formatPrice(item.price) != null && <div>{formatPrice(item.price)} admission</div>}
           </div>
           {item.url && (
             <div style={{ marginTop: 12 }}>
@@ -166,7 +166,7 @@ function HeroRelease({ item }) {
           >
             {item.itemType}
             {item.date && ` · ${parseLocalDate(item.date).getFullYear()}`}
-            {item.price != null && ` · $${item.price}`}
+            {formatPrice(item.price) != null && ` · ${formatPrice(item.price)}`}
           </div>
         </div>
         {item.url && <HeroCTAButton label="Listen →" href={item.url} />}
@@ -256,7 +256,7 @@ function HeroProduct({ item }) {
                 letterSpacing: -0.5,
               }}
             >
-              {item.price != null ? `$${item.price}` : ""}
+              {formatPrice(item.price) ?? ""}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               {item.stock > 0 && (

@@ -1,3 +1,10 @@
+// Format a price value. Returns null for null/-1, "free" for 0, "$X" otherwise.
+export function formatPrice(price) {
+  if (price == null || price === -1) return null;
+  if (price === 0) return "free";
+  return `$${price}`;
+}
+
 // Parse a date string (YYYY-MM-DD or ISO datetime) without timezone conversion.
 // Always uses the date portion in the original timezone offset.
 export function parseLocalDate(dateStr) {
