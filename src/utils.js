@@ -1,7 +1,26 @@
-// Parse a YYYY-MM-DD date string without timezone conversion.
+// Parse a date string (YYYY-MM-DD or ISO datetime) without timezone conversion.
+// Always uses the date portion in the original timezone offset.
 export function parseLocalDate(dateStr) {
-  const [y, m, d] = dateStr.split("-").map(Number);
+  const datePart = dateStr.split("T")[0];
+  const [y, m, d] = datePart.split("-").map(Number);
   return new Date(y, m - 1, d);
+}
+
+// Extract HH:MM from an ISO datetime string. Returns null for date-only strings.
+export function formatTime(dateStr) {
+  if (!dateStr || !dateStr.includes("T")) return null;
+  const timePart = dateStr.split("T")[1];
+  const match = timePart.match(/^(\d{2}):(\d{2})/);
+  return match ? `${match[1]}:${match[2]}` : null;
+}
+
+// Format a time range from start/end date strings.
+// Returns null if no time is present on start.
+export function formatTimeRange(startStr, endStr) {
+  const start = formatTime(startStr);
+  if (!start) return null;
+  const end = formatTime(endStr);
+  return end ? `${start} – ${end}` : start;
 }
 
 /**

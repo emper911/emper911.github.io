@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { spacing } from "../tokens";
 import { DateBlock, HeroCTAButton } from "./primitives";
-import { parseLocalDate, ctaLabelForShowType } from "../utils";
+import { parseLocalDate, ctaLabelForShowType, formatTimeRange } from "../utils";
 
 /**
  * HeroCard — dispatches to the correct hero template variant.
@@ -86,6 +86,9 @@ function HeroEvent({ item }) {
               marginTop: 6,
             }}
           >
+            {formatTimeRange(item.date, item.dateEnd) && (
+              <div>{formatTimeRange(item.date, item.dateEnd)}</div>
+            )}
             <div>@ {item.venue?.name || item.venue}</div>
             {item.price != null && <div>${item.price} admission</div>}
           </div>

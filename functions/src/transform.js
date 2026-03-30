@@ -23,6 +23,10 @@ function extractDate(props) {
   return props.date?.date?.start ?? null;
 }
 
+function extractDateEnd(props) {
+  return props.date?.date?.end ?? null;
+}
+
 function extractUrl(props) {
   return props.url?.url ?? null;
 }
@@ -64,6 +68,7 @@ export function transformPage(pageId, properties) {
     itemType: extractSelect(properties, "item-type"),
     status: extractSelect(properties, "status"),
     date: extractDate(properties),
+    dateEnd: extractDateEnd(properties),
     url: extractUrl(properties),
     note: extractText(properties, "note"),
     syncedAt: new Date().toISOString(),
