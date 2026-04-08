@@ -162,14 +162,15 @@ export function applyVisibilityRules(items, rules) {
     );
   }
 
-  if (rules.dateFilter === "futureOnly") {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    filtered = filtered.filter((item) => {
-      if (!item.date) return true;
-      return parseLocalDate(item.date) >= today;
-    });
-  }
+  // "futureOnly" no longer hides past items — they are kept but visually dimmed in the UI.
 
   return filtered;
+}
+
+// Returns true if the item's date is strictly before today.
+export function isPast(dateStr) {
+  if (!dateStr) return false;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return parseLocalDate(dateStr) < today;
 }

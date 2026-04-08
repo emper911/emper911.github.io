@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { spacing } from "../tokens";
 import { DateBlock, HeroCTAButton } from "./primitives";
-import { parseLocalDate, ctaLabelForShowType, formatTimeRange, formatPrice } from "../utils";
+import { parseLocalDate, ctaLabelForShowType, formatTimeRange, formatPrice, isPast } from "../utils";
 
 /**
  * HeroCard — dispatches to the correct hero template variant.
@@ -62,35 +62,40 @@ function HeroWrapper({ sectionLabel, children }) {
 // ─── Hero: Event ───
 
 function HeroEvent({ item }) {
+  const past = isPast(item.date);
   return (
     <HeroWrapper sectionLabel="Featured show">
       <div style={{ display: "flex", gap: 16 }}>
-        <DateBlock dateStr={item.date} size="large" />
+        <div style={{ opacity: past ? 0.4 : 1, display: "flex" }}>
+          <DateBlock dateStr={item.date} size="large" />
+        </div>
         <div style={{ flex: 1 }}>
-          <div
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 18,
-              fontWeight: 800,
-              letterSpacing: -0.3,
-              lineHeight: 1.25,
-            }}
-          >
-            {item.name}
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              color: "var(--hero-dim)",
-              marginTop: 6,
-            }}
-          >
-            {formatTimeRange(item.date, item.dateEnd) && (
-              <div>{formatTimeRange(item.date, item.dateEnd)}</div>
-            )}
-            <div>@ {item.venue?.name || item.venue}</div>
-            {formatPrice(item.price) != null && <div>{formatPrice(item.price)} admission</div>}
+          <div style={{ opacity: past ? 0.4 : 1 }}>
+            <div
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: 18,
+                fontWeight: 800,
+                letterSpacing: -0.3,
+                lineHeight: 1.25,
+              }}
+            >
+              {item.name}
+            </div>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 11,
+                color: "var(--hero-dim)",
+                marginTop: 6,
+              }}
+            >
+              {formatTimeRange(item.date, item.dateEnd) && (
+                <div>{formatTimeRange(item.date, item.dateEnd)}</div>
+              )}
+              <div>@ {item.venue?.name || item.venue}</div>
+              {formatPrice(item.price) != null && <div>{formatPrice(item.price)} admission</div>}
+            </div>
           </div>
           {item.url && (
             <div style={{ marginTop: 12 }}>

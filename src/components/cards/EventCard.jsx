@@ -1,10 +1,11 @@
 import { DateBlock, CTAButton, StatusBadge } from "../primitives";
-import { ctaLabelForShowType, formatTimeRange, formatPrice } from "../../utils";
+import { ctaLabelForShowType, formatTimeRange, formatPrice, isPast } from "../../utils";
 
 export function EventCard({ item }) {
+  const past = isPast(item.date);
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
-      <div style={{ display: "flex", gap: 12, alignItems: "center", minWidth: 0 }}>
+      <div style={{ display: "flex", gap: 12, alignItems: "center", minWidth: 0, opacity: past ? 0.4 : 1 }}>
         {item.date && <DateBlock dateStr={item.date} size="small" />}
         <div style={{ minWidth: 0 }}>
           <div
