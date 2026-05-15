@@ -34,7 +34,7 @@ export function EventCard({ item }) {
           </div>
         )}
 
-        {item.status === "upcoming" && item.url && (
+        {item.url && (
           <div style={{ marginTop: 8 }}>
             <CTAButton label="tickets →" href={item.url} />
           </div>

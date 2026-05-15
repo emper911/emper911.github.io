@@ -31,7 +31,7 @@ const schema = {
       sortField: "date",
       sortDirection: "asc",
       feedSortField: "date",
-      visibilityRules: { hiddenStatuses: ["cancelled"], dateFilter: "futureOnly" },
+      visibilityRules: { hiddenStatuses: ["cancelled", "draft"], dateFilter: "futureOnly" },
     },
     music: {
       label: "Music",
