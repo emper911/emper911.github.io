@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { spacing } from "../tokens";
 import { DateBlock, HeroCTAButton } from "./primitives";
-import { ctaLabelForShow } from "../utils";
+import { ctaLabelForShow, isPast, formatTimeRange, formatPrice } from "../utils";
 
 /**
  * HeroCard — dispatches to the correct hero template variant.
