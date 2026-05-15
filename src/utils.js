@@ -166,6 +166,7 @@ export function getNavItems(schema) {
     }));
 }
 
+
 /**
  * Apply visibility rules to filter out hidden items.
  */
