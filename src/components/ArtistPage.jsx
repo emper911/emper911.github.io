@@ -4,11 +4,9 @@ import { resolveContentType, applyVisibilityRules } from "../utils";
 import { IdentityBlock } from "./IdentityBlock";
 import { HeroCard } from "./HeroCard";
 import { FeedCard } from "./FeedCard";
-import { FilterTabs } from "./FilterTabs";
-
-// Content types that get their own dedicated tab.
-// Anything else in the schema rolls up into "Etc."
-const PRIMARY_TAB_KEYS = new Set(["shows", "music", "merch"]);
+import { NavBar } from "./NavBar";
+import { FilterIndicator } from "./FilterIndicator";
+import { ShowsSubTabs } from "./ShowsSubTabs";
 
 export function ArtistPage({
   siteConfig,
@@ -16,8 +14,8 @@ export function ArtistPage({
   contentByCollection,
   featuredItem,
 }) {
-  const [activeFilter, setActiveFilter] = useState("shows");
-  const [activeSubFilter, setActiveSubFilter] = useState(null);
+  const [activeFilter, setActiveFilter] = useState(null);
+  const [showsTab, setShowsTab] = useState("upcoming");
 
   // Reset sub-filter when switching away from etc.
   const handleFilterSelect = (key) => {
@@ -25,9 +23,53 @@ export function ArtistPage({
     if (key !== "etc") setActiveSubFilter(null);
   };
 
-  // ─── Build full etc. pool (before sub-filter) ───
-  const etcPool = useMemo(() => {
-    if (activeFilter !== "etc") return [];
+  // ─── Build the feed ───
+  const feed = useMemo(() => {
+    const contentTypes = Object.entries(schema.contentTypes);
+
+    if (activeFilter) {
+      // Filtered: show only the selected content type
+      const [, typeConfig] = contentTypes.find(
+        ([key]) => key === activeFilter
+      ) || [null, null];
+
+      if (!typeConfig) return [];
+
+      const items = contentByCollection[typeConfig.collection] || [];
+      let visible = applyVisibilityRules(items, typeConfig.visibilityRules);
+
+      // Shows split into Upcoming / Past sub-tabs
+      let sortDirection = typeConfig.sortDirection;
+      if (activeFilter === "shows") {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const isUpcoming = (item) =>
+          !item.date || new Date(item.date) >= today;
+        visible = visible.filter((item) =>
+          showsTab === "past" ? !isUpcoming(item) : isUpcoming(item)
+        );
+        sortDirection = showsTab === "past" ? "desc" : "asc";
+      }
+
+      // Sort by the type's sortField / sortDirection
+      const sorted = [...visible].sort((a, b) => {
+        const aVal = a[typeConfig.sortField];
+        const bVal = b[typeConfig.sortField];
+        if (aVal == null && bVal == null) return 0;
+        if (aVal == null) return 1;
+        if (bVal == null) return -1;
+        const cmp = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
+        return sortDirection === "asc" ? cmp : -cmp;
+      });
+
+      return sorted.map((item) => ({
+        item,
+        template: typeConfig.cardTemplate,
+        typeLabel: typeConfig.label,
+      }));
+    }
+
+    // Default: merge all visible items, sort by feedSortField desc
     const allItems = [];
     for (const [key, typeConfig] of Object.entries(schema.contentTypes)) {
       if (PRIMARY_TAB_KEYS.has(key)) continue;
@@ -49,7 +91,7 @@ export function ArtistPage({
       return a.sortValue > b.sortValue ? -1 : a.sortValue < b.sortValue ? 1 : 0;
     });
     return allItems;
-  }, [schema, contentByCollection, activeFilter]);
+  }, [schema, contentByCollection, activeFilter, showsTab]);
 
   // ─── Derive unique itemType values for etc. sub-tabs ───
   const etcSubTypes = useMemo(() => {
@@ -103,6 +145,12 @@ export function ArtistPage({
     return resolved?.config.heroTemplate || "media";
   }, [featuredItem, siteConfig, schema]);
 
+  // ─── Filter toggle handler ───
+  const handleFilterToggle = (key) => {
+    setActiveFilter((prev) => (prev === key ? null : key));
+    setShowsTab("upcoming");
+  };
+
   return (
     <div
       style={{
@@ -129,9 +177,13 @@ export function ArtistPage({
         onSubSelect={setActiveSubFilter}
       />
 
-      {/* Scrollable feed */}
-      <div style={{ flex: 1, overflowY: "auto" }}>
-        <div style={{ padding: `6px ${spacing.pagePad}px 24px` }}>
+        {/* Shows Upcoming / Past sub-tabs */}
+        {activeFilter === "shows" && (
+          <ShowsSubTabs active={showsTab} onChange={setShowsTab} />
+        )}
+
+        {/* Feed */}
+        <div style={{ padding: `6px ${spacing.pagePad}px 0` }}>
           {feed.map(({ item, template, typeLabel }, index) => (
             <FeedCard
               key={item.id || index}

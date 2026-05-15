@@ -1,5 +1,9 @@
 import { DateBlock, CTAButton, StatusBadge } from "../primitives";
+<<<<<<< HEAD
 import { ctaLabelForShowType, formatTimeRange, formatPrice, isPast } from "../../utils";
+=======
+import { ctaLabelForShow } from "../../utils";
+>>>>>>> 72451f5278e884eca77edcb7cd618a4c4a205350
 
 export function EventCard({ item }) {
   const past = isPast(item.date);
@@ -19,6 +23,7 @@ export function EventCard({ item }) {
           >
             {item.name}
           </div>
+<<<<<<< HEAD
           <div
             style={{
               fontFamily: "var(--font-mono)",
@@ -32,6 +37,13 @@ export function EventCard({ item }) {
             )}
             @ {item.venue?.name || item.venue}
             {formatPrice(item.price) != null && ` · ${formatPrice(item.price)}`}
+=======
+        )}
+
+        {item.url && (
+          <div style={{ marginTop: 8 }}>
+            <CTAButton label={ctaLabelForShow(item.ctaType)} href={item.url} />
+>>>>>>> 72451f5278e884eca77edcb7cd618a4c4a205350
           </div>
           {item.status === "postponed" && (
             <div style={{ marginTop: 4 }}>

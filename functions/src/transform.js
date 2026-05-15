@@ -82,6 +82,7 @@ export function transformPage(pageId, properties) {
         collection,
         venue,
         price: extractNumber(properties, "price"),
+        ctaType: extractSelect(properties, "cta-type"),
       };
     }
     case "music":
