@@ -1,4 +1,5 @@
 import { DateBlock, CTAButton, StatusBadge } from "../primitives";
+import { ctaLabelForShow } from "../../utils";
 
 export function EventCard({ item }) {
   return (
@@ -36,7 +37,7 @@ export function EventCard({ item }) {
 
         {item.url && (
           <div style={{ marginTop: 8 }}>
-            <CTAButton label="tickets →" href={item.url} />
+            <CTAButton label={ctaLabelForShow(item.ctaType)} href={item.url} />
           </div>
         )}
       </div>

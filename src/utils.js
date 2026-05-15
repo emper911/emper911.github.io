@@ -74,6 +74,24 @@ export function ctaLabelForMediaType(itemType) {
 }
 
 /**
+ * Determine CTA label for a show from its cta-type.
+ * Artist sets cta-type in Notion (e.g. "ticket" before, "watch" once recorded).
+ */
+export function ctaLabelForShow(ctaType) {
+  switch (ctaType) {
+    case "stream":
+      return "Stream →";
+    case "watch":
+      return "Watch →";
+    case "listen":
+      return "Listen →";
+    case "ticket":
+    default:
+      return "Tickets →";
+  }
+}
+
+/**
  * Resolve which content type a document belongs to,
  * given its source collection and the schema config.
  * Returns the content type key and config object.
