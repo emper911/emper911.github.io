@@ -7,6 +7,7 @@ import { FeedCard } from "./FeedCard";
 import { NavBar } from "./NavBar";
 import { FilterIndicator } from "./FilterIndicator";
 import { ShowsSubTabs } from "./ShowsSubTabs";
+import { FilterTabs } from "./FilterTabs";
 
 export function ArtistPage({
   siteConfig,
@@ -16,6 +17,7 @@ export function ArtistPage({
 }) {
   const [activeFilter, setActiveFilter] = useState(null);
   const [showsTab, setShowsTab] = useState("upcoming");
+  const [activeSubFilter, setActiveSubFilter] = useState(null);
 
   // Reset sub-filter when switching away from etc.
   const handleFilterSelect = (key) => {
@@ -23,75 +25,18 @@ export function ArtistPage({
     if (key !== "etc") setActiveSubFilter(null);
   };
 
-  // ─── Build the feed ───
-  const feed = useMemo(() => {
-    const contentTypes = Object.entries(schema.contentTypes);
-
-    if (activeFilter) {
-      // Filtered: show only the selected content type
-      const [, typeConfig] = contentTypes.find(
-        ([key]) => key === activeFilter
-      ) || [null, null];
-
-      if (!typeConfig) return [];
-
-      const items = contentByCollection[typeConfig.collection] || [];
-      let visible = applyVisibilityRules(items, typeConfig.visibilityRules);
-
-      // Shows split into Upcoming / Past sub-tabs
-      let sortDirection = typeConfig.sortDirection;
-      if (activeFilter === "shows") {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const isUpcoming = (item) =>
-          !item.date || new Date(item.date) >= today;
-        visible = visible.filter((item) =>
-          showsTab === "past" ? !isUpcoming(item) : isUpcoming(item)
-        );
-        sortDirection = showsTab === "past" ? "desc" : "asc";
-      }
-
-      // Sort by the type's sortField / sortDirection
-      const sorted = [...visible].sort((a, b) => {
-        const aVal = a[typeConfig.sortField];
-        const bVal = b[typeConfig.sortField];
-        if (aVal == null && bVal == null) return 0;
-        if (aVal == null) return 1;
-        if (bVal == null) return -1;
-        const cmp = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
-        return sortDirection === "asc" ? cmp : -cmp;
-      });
-
-      return sorted.map((item) => ({
-        item,
-        template: typeConfig.cardTemplate,
-        typeLabel: typeConfig.label,
-      }));
-    }
-
-    // Default: merge all visible items, sort by feedSortField desc
-    const allItems = [];
-    for (const [key, typeConfig] of Object.entries(schema.contentTypes)) {
-      if (PRIMARY_TAB_KEYS.has(key)) continue;
-      const items = contentByCollection[typeConfig.collection] || [];
-      const visible = applyVisibilityRules(items, typeConfig.visibilityRules);
-      for (const item of visible) {
-        allItems.push({
-          item,
-          template: typeConfig.cardTemplate,
-          typeLabel: typeConfig.label,
-          sortValue: item[typeConfig.feedSortField],
-        });
-      }
-    }
-    allItems.sort((a, b) => {
-      if (a.sortValue == null && b.sortValue == null) return 0;
-      if (a.sortValue == null) return 1;
-      if (b.sortValue == null) return -1;
-      return a.sortValue > b.sortValue ? -1 : a.sortValue < b.sortValue ? 1 : 0;
-    });
-    return allItems;
-  }, [schema, contentByCollection, activeFilter, showsTab]);
+  // ─── etc pool (all visible items for the "etc" content type) ───
+  const etcPool = useMemo(() => {
+    const typeConfig = schema.contentTypes["etc"];
+    if (!typeConfig) return [];
+    const items = contentByCollection[typeConfig.collection] || [];
+    const visible = applyVisibilityRules(items, typeConfig.visibilityRules);
+    return visible.map((item) => ({
+      item,
+      template: typeConfig.cardTemplate,
+      typeLabel: typeConfig.label,
+    }));
+  }, [schema, contentByCollection]);
 
   // ─── Derive unique itemType values for etc. sub-tabs ───
   const etcSubTypes = useMemo(() => {
@@ -108,12 +53,25 @@ export function ArtistPage({
       return etcPool.filter(({ item }) => item.itemType === activeSubFilter);
     }
 
-    // Primary tab: show only that content type
+    if (!activeFilter) return [];
+
     const typeConfig = schema.contentTypes[activeFilter];
     if (!typeConfig) return [];
 
     const items = contentByCollection[typeConfig.collection] || [];
-    const visible = applyVisibilityRules(items, typeConfig.visibilityRules);
+    let visible = applyVisibilityRules(items, typeConfig.visibilityRules);
+    let sortDirection = typeConfig.sortDirection;
+
+    if (activeFilter === "shows") {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const isUpcoming = (item) =>
+        !item.date || new Date(item.date) >= today;
+      visible = visible.filter((item) =>
+        showsTab === "past" ? !isUpcoming(item) : isUpcoming(item)
+      );
+      sortDirection = showsTab === "past" ? "desc" : "asc";
+    }
 
     const sorted = [...visible].sort((a, b) => {
       const aVal = a[typeConfig.sortField];
@@ -122,7 +80,7 @@ export function ArtistPage({
       if (aVal == null) return 1;
       if (bVal == null) return -1;
       const cmp = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
-      return typeConfig.sortDirection === "asc" ? cmp : -cmp;
+      return sortDirection === "asc" ? cmp : -cmp;
     });
 
     return sorted.map((item) => ({
@@ -130,7 +88,7 @@ export function ArtistPage({
       template: typeConfig.cardTemplate,
       typeLabel: typeConfig.label,
     }));
-  }, [schema, contentByCollection, activeFilter, activeSubFilter, etcPool]);
+  }, [schema, contentByCollection, activeFilter, activeSubFilter, etcPool, showsTab]);
 
   // ─── Resolve hero template ───
   const heroTemplate = useMemo(() => {
@@ -207,7 +165,6 @@ export function ArtistPage({
             </div>
           )}
         </div>
-      </div>
     </div>
   );
 }
