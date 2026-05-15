@@ -15,7 +15,7 @@ export function ArtistPage({
   contentByCollection,
   featuredItem,
 }) {
-  const [activeFilter, setActiveFilter] = useState(null);
+  const [activeFilter, setActiveFilter] = useState("shows");
   const [showsTab, setShowsTab] = useState("upcoming");
   const [activeSubFilter, setActiveSubFilter] = useState(null);
 
@@ -25,17 +25,22 @@ export function ArtistPage({
     if (key !== "etc") setActiveSubFilter(null);
   };
 
-  // ─── etc pool (all visible items for the "etc" content type) ───
+  // Primary tab keys — content types with their own dedicated tab.
+  // "etc" aggregates everything else.
+  const PRIMARY_TAB_KEYS = new Set(["shows", "music", "merch"]);
+
+  // ─── etc pool (all visible items from non-primary content types) ───
   const etcPool = useMemo(() => {
-    const typeConfig = schema.contentTypes["etc"];
-    if (!typeConfig) return [];
-    const items = contentByCollection[typeConfig.collection] || [];
-    const visible = applyVisibilityRules(items, typeConfig.visibilityRules);
-    return visible.map((item) => ({
-      item,
-      template: typeConfig.cardTemplate,
-      typeLabel: typeConfig.label,
-    }));
+    const all = [];
+    for (const [key, typeConfig] of Object.entries(schema.contentTypes)) {
+      if (PRIMARY_TAB_KEYS.has(key)) continue;
+      const items = contentByCollection[typeConfig.collection] || [];
+      const visible = applyVisibilityRules(items, typeConfig.visibilityRules);
+      for (const item of visible) {
+        all.push({ item, template: typeConfig.cardTemplate, typeLabel: typeConfig.label });
+      }
+    }
+    return all;
   }, [schema, contentByCollection]);
 
   // ─── Derive unique itemType values for etc. sub-tabs ───
