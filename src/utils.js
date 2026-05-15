@@ -123,7 +123,7 @@ export function ctaLabelForMediaType(itemType) {
  * Determine CTA label for a show from its cta-type.
  * Artist sets cta-type in Notion (e.g. "ticket" before, "watch" once recorded).
  */
-export function ctaLabelForShow(ctaType) {
+export function ctaLabelForShow(ctaType, itemType) {
   switch (ctaType) {
     case "stream":
       return "Stream →";
@@ -132,8 +132,10 @@ export function ctaLabelForShow(ctaType) {
     case "listen":
       return "Listen →";
     case "ticket":
-    default:
       return "Tickets →";
+    default:
+      // ctaType not yet synced — fall back to itemType heuristic
+      return ctaLabelForShowType(itemType);
   }
 }
 

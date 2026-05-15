@@ -99,7 +99,7 @@ function HeroEvent({ item }) {
           </div>
           {item.url && (
             <div style={{ marginTop: 12 }}>
-              <HeroCTAButton label={ctaLabelForShow(item.ctaType)} href={item.url} />
+              <HeroCTAButton label={ctaLabelForShow(item.ctaType, item.itemType)} href={item.url} />
             </div>
           )}
         </div>

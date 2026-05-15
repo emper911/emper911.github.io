@@ -42,7 +42,7 @@ export function EventCard({ item }) {
       </div>
 
       {item.url && (
-        <CTAButton label={ctaLabelForShow(item.ctaType)} href={item.url} />
+        <CTAButton label={ctaLabelForShow(item.ctaType, item.itemType)} href={item.url} />
       )}
     </div>
   );
