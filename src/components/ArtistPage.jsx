@@ -10,6 +10,7 @@ import { HeroCard } from "./HeroCard";
 import { FeedCard } from "./FeedCard";
 import { NavBar } from "./NavBar";
 import { FilterIndicator } from "./FilterIndicator";
+import { ShowsSubTabs } from "./ShowsSubTabs";
 
 /**
  * ArtistPage — top-level page component.
@@ -29,6 +30,7 @@ export function ArtistPage({
   featuredItem,
 }) {
   const [activeFilter, setActiveFilter] = useState(null);
+  const [showsTab, setShowsTab] = useState("upcoming");
 
   // ─── Derive nav items from schema ───
   const navItems = useMemo(() => getNavItems(schema), [schema]);
@@ -46,7 +48,20 @@ export function ArtistPage({
       if (!typeConfig) return [];
 
       const items = contentByCollection[typeConfig.collection] || [];
-      const visible = applyVisibilityRules(items, typeConfig.visibilityRules);
+      let visible = applyVisibilityRules(items, typeConfig.visibilityRules);
+
+      // Shows split into Upcoming / Past sub-tabs
+      let sortDirection = typeConfig.sortDirection;
+      if (activeFilter === "shows") {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const isUpcoming = (item) =>
+          !item.date || new Date(item.date) >= today;
+        visible = visible.filter((item) =>
+          showsTab === "past" ? !isUpcoming(item) : isUpcoming(item)
+        );
+        sortDirection = showsTab === "past" ? "desc" : "asc";
+      }
 
       // Sort by the type's sortField / sortDirection
       const sorted = [...visible].sort((a, b) => {
@@ -56,7 +71,7 @@ export function ArtistPage({
         if (aVal == null) return 1;
         if (bVal == null) return -1;
         const cmp = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
-        return typeConfig.sortDirection === "asc" ? cmp : -cmp;
+        return sortDirection === "asc" ? cmp : -cmp;
       });
 
       return sorted.map((item) => ({
@@ -92,7 +107,7 @@ export function ArtistPage({
     });
 
     return allItems;
-  }, [schema, contentByCollection, activeFilter]);
+  }, [schema, contentByCollection, activeFilter, showsTab]);
 
   // ─── Resolve hero template ───
   const heroTemplate = useMemo(() => {
@@ -114,6 +129,7 @@ export function ArtistPage({
   // ─── Filter toggle handler ───
   const handleFilterToggle = (key) => {
     setActiveFilter((prev) => (prev === key ? null : key));
+    setShowsTab("upcoming");
   };
 
   return (
@@ -141,6 +157,11 @@ export function ArtistPage({
             label={schema.contentTypes[activeFilter]?.label || activeFilter}
             onClear={() => setActiveFilter(null)}
           />
+        )}
+
+        {/* Shows Upcoming / Past sub-tabs */}
+        {activeFilter === "shows" && (
+          <ShowsSubTabs active={showsTab} onChange={setShowsTab} />
         )}
 
         {/* Feed */}
