@@ -40,7 +40,14 @@ export function ArtistPage({
         all.push({ item, template: typeConfig.cardTemplate, typeLabel: typeConfig.label });
       }
     }
-    return all;
+    return all.sort((a, b) => {
+      const aDate = a.item.date ? new Date(a.item.date) : null;
+      const bDate = b.item.date ? new Date(b.item.date) : null;
+      if (!aDate && !bDate) return 0;
+      if (!aDate) return 1;
+      if (!bDate) return -1;
+      return bDate - aDate;
+    });
   }, [schema, contentByCollection]);
 
   // ─── Derive unique itemType values for etc. sub-tabs ───
