@@ -5,7 +5,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { ArtistPage } from "./components/ArtistPage";
 import { mockSiteConfig, mockSchema, mockContentByCollection, mockFeaturedItem } from "./mockData";
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
+const USE_MOCK = import.meta.env.DEV && import.meta.env.VITE_USE_MOCK === "true";
 
 async function fetchSiteConfig() {
   const snap = await getDoc(doc(db, "config", "site"));
