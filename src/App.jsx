@@ -3,6 +3,9 @@ import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { ArtistPage } from "./components/ArtistPage";
+import { mockSiteConfig, mockSchema, mockContentByCollection, mockFeaturedItem } from "./mockData";
+
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 async function fetchSiteConfig() {
   const snap = await getDoc(doc(db, "config", "site"));
@@ -47,6 +50,15 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (USE_MOCK) {
+      setSiteConfig(mockSiteConfig);
+      setSchema(mockSchema);
+      setContent(mockContentByCollection);
+      setFeatured(mockFeaturedItem);
+      setLoading(false);
+      return;
+    }
+
     async function init() {
       try {
         const [site, sch] = await Promise.all([

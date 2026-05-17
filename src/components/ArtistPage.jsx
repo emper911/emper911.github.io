@@ -119,7 +119,7 @@ export function ArtistPage({
       style={{
         background: "var(--bg)",
         color: "var(--fg)",
-        height: "100vh",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
@@ -146,7 +146,7 @@ export function ArtistPage({
         )}
 
         {/* Feed — only this region scrolls */}
-        <div style={{ flex: 1, overflowY: "auto", padding: `6px ${spacing.pagePad}px 0` }}>
+        <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: `6px ${spacing.pagePad}px 0` }}>
           {feed.map(({ item, template, typeLabel }, index) => (
             <FeedCard
               key={item.id || index}

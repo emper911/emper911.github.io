@@ -22,7 +22,7 @@ export function ThemeProvider({ theme = "dark", children }) {
 
   return (
     <ThemeContext.Provider value={resolved}>
-      <div style={{ ...vars }}>{children}</div>
+      <div style={{ ...vars, height: "100%" }}>{children}</div>
     </ThemeContext.Provider>
   );
 }
