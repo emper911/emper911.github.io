@@ -145,8 +145,8 @@ export function ArtistPage({
           <ShowsSubTabs active={showsTab} onChange={setShowsTab} />
         )}
 
-        {/* Feed */}
-        <div style={{ padding: `6px ${spacing.pagePad}px 0` }}>
+        {/* Feed — only this region scrolls */}
+        <div style={{ flex: 1, overflowY: "auto", padding: `6px ${spacing.pagePad}px 0` }}>
           {feed.map(({ item, template, typeLabel }, index) => (
             <FeedCard
               key={item.id || index}
